@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { UserContext } from "../shared/context/UserContext";
 import {
   Fieldset,
   TextInput,
@@ -10,16 +11,18 @@ import {
 } from "@mantine/core";
 import app from "../shared/firebaseConfig/firebase";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import {NavLink} from 'react-router-dom'
 
 export default function SignInCopy(props) {
   // { console.log(props + "this is props")}
 
   const [auth, setAuth] = useState(getAuth())
   const [isG, setG] = useState();
+  const {user,setUser} = useContext(UserContext);
+
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -30,6 +33,11 @@ export default function SignInCopy(props) {
     .then((userCredential) => {
      
       const user = userCredential.user;
+      setUser({
+        uid: user.uid
+      })
+
+      console.log(user + "this is user in signInCopy")
       setG(true);
           
     })
@@ -64,24 +72,8 @@ signInWithEmailAndPassword(auth, email, password)
   }*/
 
   return (
-  
+  <>
     <Fieldset legend="Personal information">
-      <Controller
-      name = "name"
-      control = {control}
-      rules={{
-        required: {value: true, message:"This is required"},
-      }}
-      render={({ field,formState }) => {
-        return <TextInput
-          label="Name"
-          error = {formState.errors.name && formState.errors.name.message}
-          placeholder="name"
-          mt="md"
-          {...field}
-        />
-      }} 
-      />
       <Controller
       name = "email"
       control = {control}
@@ -123,6 +115,8 @@ signInWithEmailAndPassword(auth, email, password)
 
       {isG && <p color="green">Success</p>}
     </Fieldset>
+    <NavLink to="/books" >Books</NavLink>
+    </>
     
   );
 }
