@@ -1,23 +1,36 @@
 import React from 'react'
-import { useState,useEffect,useContext } from 'react'
+import { useState,useEffect,useContext,useReducer} from 'react'
 import axios from 'axios'
 import { SimpleGrid, Card,Image,Text,Badge,Button,Group } from '@mantine/core'
-import {UserContext} from '../shared/context/UserContext'
+import { getAuth,onAuthStateChanged } from "firebase/auth";
+
 
 export default function Books(){
 
     const [data, setData] = useState()
+    const[auth,setAuth] = useState(getAuth())
     const [isLoaded, setLoaded] = useState(false)
-    const {user,setUser} = useContext(UserContext);
+    const[user,setUser] = useState(getAuth().currentUser)
+
+
+   
+    
 
     async function checkOut(book_id){
-        axios.post(`http://localhost:4000/checkout-book`,{book_id:book_id, uid: user.uid})
-        .then(res => {                    
+        console.log(JSON.stringify(user));
+        axios.post(`http://localhost:4000/checkout-book`,{book_id:book_id, _id: user._id})
+        .then(res => {
+            const filteredArray = data.filter(item => item._id !== book_id);   
+            setData(filteredArray);
+            
         })
         .catch(err => console.log(err));
     }
 
+
     
+   
+
 
     async function getData(){
         const response = await axios.get('http://localhost:4000/get-books');
@@ -26,8 +39,7 @@ export default function Books(){
     }
    
     useEffect(()=>{
-        console.log('2')
-        async function getData(){
+      async function getData(){
             const response = await axios.get('http://localhost:4000/get-books');
             const dat = await response.data
             setData(dat)
@@ -35,8 +47,21 @@ export default function Books(){
             
         }
         getData();
+
     },[])
-   
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        setUser(user)
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
 
 
 
@@ -70,7 +95,6 @@ return (
 
               <Button onClick={() => checkOut(book._id)} disabled = {user?false:true} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Checkout Book now 
-                {console.log({user})}
               </Button>
             </Card>
         ))}

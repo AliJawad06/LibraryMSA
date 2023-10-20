@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { UserContext } from "../shared/context/UserContext";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, browserSessionPersistence,setPersistence } from "firebase/auth";
 import {
   Fieldset,
   TextInput,
@@ -9,7 +8,6 @@ import {
   Group,
   MantineProvider,
 } from "@mantine/core";
-import app from "../shared/firebaseConfig/firebase";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import {NavLink} from 'react-router-dom'
 
@@ -18,7 +16,6 @@ export default function SignInCopy(props) {
 
   const [auth, setAuth] = useState(getAuth())
   const [isG, setG] = useState();
-  const {user,setUser} = useContext(UserContext);
 
 
   const { control, handleSubmit } = useForm({
@@ -29,23 +26,23 @@ export default function SignInCopy(props) {
     mode:"all"
   });
   const onSubmit = (data) => {
-    signInWithEmailAndPassword(auth, data.email, data.password)
-    .then((userCredential) => {
-     
-      const user = userCredential.user;
-      setUser({
-        uid: user.uid
-      })
-
-      console.log(user + "this is user in signInCopy")
-      setG(true);
-          
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+  setPersistence(auth, browserSessionPersistence)
+  .then(() => {
+    // Existing and future Auth states are now persisted in the current
+    // session only. Closing the window would clear any existing state even
+    // if a user forgets to sign out.
+    // ...
+    // New sign-in will be persisted with session persistence.
+    return signInWithEmailAndPassword(auth, data.email, data.password);
+  })
+  .catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
     
-    });
+    
+
   }   
 
   

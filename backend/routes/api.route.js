@@ -13,7 +13,7 @@ let mongoose = require('mongoose');
       res.send(result)
     })
     .catch((err) =>{
-      next(err);
+      console.log(err);
     })
 })
 
@@ -23,20 +23,20 @@ let mongoose = require('mongoose');
       res.send(result)
     })
     .catch((err) =>{
-      next(err);
+      console.log(err);
     })
     
   })
 
   router.route('/get-user/:userId').get((req,res) =>{
     const userID = req.params.userID
-    userSchema.find({uuid: userID})
+    userSchema.find({_id: userID})
     bookSchema.find()
     .then((result) =>{
       res.send(result)
     })
     .catch((err) =>{
-      next(err);
+      console.log(err);
     })
     
   })
@@ -47,14 +47,44 @@ let mongoose = require('mongoose');
       res.send(result)
     })
     .catch((err) =>{
-      next(err);
+      console.log(err);
     })
 })
 
 
 router.route('/checkout-book').post((req, res, next) => {
-  console.log(JSON.stringify(req.body) + "this is req.body")
+
+  console.log(JSON.stringify(req.body) + "this is reqbody")
+
+  bookSchema.findOne({_id:req.body.book_id}).then((result) =>{
+    const book = result[0]
+    userSchema.findByIdAndUpdate({_id:req.body._id}, { $push: { checkouts: book } })
+    .then((result) =>{
+      console.log(result)
+    })
+    .catch((err) =>{
+      console.log(err);
+    })
+    
+     bookSchema.deleteOne({_id:req.body.book_id})
+     .then((result) =>{
+       console.log(result)
+     })
+     .catch((err) =>{
+       console.log(err);
+     })
+   })
+   .catch((err) =>{
+     console.log(err);
+   })
+
 })
+
+
+   
+   
+
+
 
  
 

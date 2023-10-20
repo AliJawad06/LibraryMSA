@@ -11,9 +11,6 @@ let bookSchema = new Schema({
     },
     due_length:{
         type: Number
-    },
-    _id:{
-        type:Schema.Types.ObjectId
     }
   }, {
       collection: 'books'

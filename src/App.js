@@ -4,20 +4,20 @@ import SignInCopy from "./views/signIncopy";
 import SignUp from "./views/signUp";
 import CreateBook from "./views/createBook"
 import Books from "./views/books";
+import User from "./views/user"
 import {useState,useContext} from "react"
-import {UserContext} from "./shared/context/UserContext"
+
+
 
 
 const App = () => {
    // { console.log(props + "this is props")}
 
-   const[user, setUser] = useState(false)
 
   return (
      <>    
 
       <Router>      
-        <UserContext.Provider value = {{user,setUser}}>
         <Routes>  
              
 
@@ -27,7 +27,6 @@ const App = () => {
           <Route exact path="/books" element={<Books />} />
        
         </Routes>
-        </UserContext.Provider>
       </Router>
       
       </>

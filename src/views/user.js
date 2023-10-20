@@ -1,17 +1,16 @@
 import React from 'react'
-import { useState,useEffect,useContext } from 'react'
+import { useState,useEffect,useContext,useReducer} from 'react'
 import axios from 'axios'
 import { SimpleGrid, Card,Image,Text,Badge,Button,Group } from '@mantine/core'
-import { UserContext } from "../shared/context/UserContext";
+import { getAuth,onAuthStateChanged } from "firebase/auth";
 
-
-export default function Books(){
+export default function User(){
 
     const [data, setData] = useState()
-    const [isLoaded, setLoaded] = useState(false)
-    const {user,setUser} = useContext(UserContext);
+    const [error, setError] = useState();
+    const [user,setUser] = useState();
 
-    async function User(){
+    async function getData(){
         const response = await axios.get('http://localhost:4000/get-books');
         const dat = await response.data
         setData(dat)
@@ -19,9 +18,9 @@ export default function Books(){
     getData();
    
     useEffect(()=>{
-        async function getUser(){
+        async function getData(){
             if(user){
-            const response = await axios.get('http://localhost:4000/get-books');
+            const response = await axios.get('http://localhost:4000/user/:');
             const dat = await response.data
             setData(dat)
             }
@@ -31,13 +30,14 @@ export default function Books(){
 
     },[])
    
+  
 
 
 
 
 return (
   <div >
-    {user && }
+    <p>{JSON.stringify(data)}</p>
   </div>
 );
 
