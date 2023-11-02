@@ -18,10 +18,7 @@ let bookSchema1 = new Schema({
 let checkoutSchema = new Schema({
     book: {
       type: bookSchema1
-    },
-    due_date:{
-      type: Date
-    },
+    }
   })
 
   module.exports = mongoose.model('Checkout', checkoutSchema)

@@ -5,8 +5,8 @@ let mongoose = require('mongoose');
   let userSchema = require('../models/User')
 
   router = express.Router()
-    
 
+  
   router.route('/add-book').post((req, res, next) => {
     bookSchema.create(req.body)
     .then((result) =>{
@@ -28,10 +28,10 @@ let mongoose = require('mongoose');
     
   })
 
-  router.route('/get-user/:userId').get((req,res) =>{
+  router.route('/user/:userId').get((req,res) =>{
     const userID = req.params.userID
-    userSchema.find({_id: userID})
-    bookSchema.find()
+    console.log(userID + "This is UserID")
+    userSchema.findOne({uuid: userID})
     .then((result) =>{
       res.send(result)
     })
@@ -54,13 +54,14 @@ let mongoose = require('mongoose');
 
 router.route('/checkout-book').post((req, res, next) => {
 
-  console.log(JSON.stringify(req.body) + "this is reqbody")
-
   bookSchema.findOne({_id:req.body.book_id}).then((result) =>{
-    const book = result[0]
-    userSchema.findByIdAndUpdate({_id:req.body._id}, { $push: { checkouts: book } })
-    .then((result) =>{
-      console.log(result)
+  
+    const book = result;
+
+    console.log(JSON.stringify(result) + "this is result")
+    userSchema.findOneAndUpdate({uuid:req.body.uuid.toString()}, { $push: { checkouts: book } })
+    .then((result1) =>{
+      res.send(result1)
     })
     .catch((err) =>{
       console.log(err);
@@ -79,13 +80,5 @@ router.route('/checkout-book').post((req, res, next) => {
    })
 
 })
-
-
-   
-   
-
-
-
- 
 
 module.exports = router

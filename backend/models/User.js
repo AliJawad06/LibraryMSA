@@ -18,16 +18,13 @@ let bookSchema1 = new Schema({
 let checkoutSchema = new Schema({
     book: {
       type: bookSchema1
-    },
-    due_date:{
-      type: Date
-    },
+    }
   })
 
 
 
 let userSchema = new Schema({
-    _id: {
+    uuid: {
       type: String
     },
     name: {

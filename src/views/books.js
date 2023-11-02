@@ -3,12 +3,14 @@ import { useState,useEffect,useContext,useReducer} from 'react'
 import axios from 'axios'
 import { SimpleGrid, Card,Image,Text,Badge,Button,Group } from '@mantine/core'
 import { getAuth,onAuthStateChanged } from "firebase/auth";
+import { NavLink } from 'react-router-dom';
 
 
 export default function Books(){
 
-    const [data, setData] = useState()
-    const[auth,setAuth] = useState(getAuth())
+    const [data, setData] = useState();
+    const [flag,setFlag] = useState(true);
+    const[auth,setAuth] = useState(getAuth());
     const [isLoaded, setLoaded] = useState(false)
     const[user,setUser] = useState(getAuth().currentUser)
 
@@ -17,14 +19,14 @@ export default function Books(){
     
 
     async function checkOut(book_id){
-        console.log(JSON.stringify(user));
-        axios.post(`http://localhost:4000/checkout-book`,{book_id:book_id, _id: user._id})
+        axios.post(`http://localhost:4000/checkout-book`,{book_id:book_id, uuid: user.uid})
         .then(res => {
+            console.log(res)
             const filteredArray = data.filter(item => item._id !== book_id);   
             setData(filteredArray);
-            
+            setFlag(!flag)
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log( "this is err"));
     }
 
 
@@ -32,18 +34,15 @@ export default function Books(){
    
 
 
-    async function getData(){
-        const response = await axios.get('http://localhost:4000/get-books');
-        const dat = await response.data
-        setData(dat)
-    }
+  
    
     useEffect(()=>{
+
+      console.log("here")
       async function getData(){
             const response = await axios.get('http://localhost:4000/get-books');
             const dat = await response.data
             setData(dat)
-            console.log('3')
             
         }
         getData();
@@ -54,7 +53,7 @@ export default function Books(){
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
+        const uid = user.email;
         setUser(user)
         // ...
       } else {
@@ -100,6 +99,7 @@ return (
         ))}
     </SimpleGrid>
     )}
+    <NavLink to="/user" >user</NavLink>
   </div>
 );
 

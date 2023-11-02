@@ -8,30 +8,32 @@ export default function User(){
 
     const [data, setData] = useState()
     const [error, setError] = useState();
-    const [user,setUser] = useState();
-
-    async function getData(){
-        const response = await axios.get('http://localhost:4000/get-books');
-        const dat = await response.data
-        setData(dat)
-    }
-    getData();
-   
-    useEffect(()=>{
-        async function getData(){
-            if(user){
-            const response = await axios.get('http://localhost:4000/user/:');
-            const dat = await response.data
-            setData(dat)
-            }
-        }
-        getData();
+    const [useruid,setUser] = useState();
+    const [userdata, setUserdata] = useState();
+    const[auth,setAuth] = useState(getAuth())
 
 
-    },[])
-   
   
 
+   
+  
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        setUser(uid)
+        console.log("http://localhost:4000/user/" + user.uid.toString())
+         const response =  axios.get("http://localhost:4000/user/" + useruid)
+            .then((result) =>{
+              console.log(JSON.stringify(result) + "this is user Data")
+            });
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
 
 
 
