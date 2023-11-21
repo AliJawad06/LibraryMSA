@@ -29,10 +29,10 @@ let mongoose = require('mongoose');
   })
 
   router.route('/user/:userId').get((req,res) =>{
-    const userID = req.params.userID
-    console.log(userID + "This is UserID")
-    userSchema.findOne({uuid: userID})
+    const userId = req.params.userId
+    userSchema.findOne({uuid: userId})
     .then((result) =>{
+      console.log(JSON.stringify(result) + "this is the user data")
       res.send(result)
     })
     .catch((err) =>{
@@ -56,9 +56,6 @@ router.route('/checkout-book').post((req, res, next) => {
 
   bookSchema.findOne({_id:req.body.book_id}).then((result) =>{
   
-    const book = result;
-
-    console.log(JSON.stringify(result) + "this is result")
     userSchema.findOneAndUpdate({uuid:req.body.uuid.toString()}, { $push: { checkouts: book } })
     .then((result1) =>{
       res.send(result1)

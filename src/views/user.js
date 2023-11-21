@@ -12,10 +12,6 @@ export default function User(){
     const [userdata, setUserdata] = useState();
     const[auth,setAuth] = useState(getAuth())
 
-
-  
-
-   
   
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -29,9 +25,7 @@ export default function User(){
               console.log(JSON.stringify(result) + "this is user Data")
             });
         // ...
-      } else {
-        // User is signed out
-        // ...
+      } else {            
       }
     });
 
