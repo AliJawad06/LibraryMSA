@@ -3,7 +3,7 @@ let mongoose = require('mongoose');
   express = require('express'); 
   let bookSchema = require('../models/Book');
   let userSchema = require('../models/User')
-
+  let checkoutSchema = require('../models/Checkout')
   router = express.Router()
 
   
@@ -26,6 +26,19 @@ let mongoose = require('mongoose');
       console.log(err);
     })
     
+
+    
+  })
+
+  router.route('/get-all-checkouts').get((req,res) =>{
+    checkoutSchema.find()
+    .then((result) =>{
+      res.send(result)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+
   })
 
   router.route('/user/:userId').get((req,res) =>{
@@ -55,7 +68,7 @@ let mongoose = require('mongoose');
 router.route('/checkout-book').post((req, res, next) => {
 
   bookSchema.findOne({_id:req.body.book_id}).then((result) =>{
-  
+   const book = result;
     userSchema.findOneAndUpdate({uuid:req.body.uuid.toString()}, { $push: { checkouts: book } })
     .then((result1) =>{
       res.send(result1)

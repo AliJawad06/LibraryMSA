@@ -6,7 +6,7 @@ let bookSchema1 = new Schema({
     },
     author: {
       type: String
-    },
+    }, 
     due_length:{
         type: Number
     },
@@ -15,10 +15,19 @@ let bookSchema1 = new Schema({
     }
   });
 
-let checkoutSchema = new Schema({
+  let checkoutSchema = new Schema({
     book: {
       type: bookSchema1
-    }
+    }, 
+    due_date:{
+      type: Date
+    }, 
+    status: {
+      type: Boolean
+    },
+    _id:{
+      type:Schema.Types.ObjectId
+  }
   })
 
   module.exports = mongoose.model('Checkout', checkoutSchema)

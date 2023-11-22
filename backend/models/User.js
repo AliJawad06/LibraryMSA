@@ -9,6 +9,9 @@ let bookSchema1 = new Schema({
   },
   due_length:{
       type: Number
+  },
+  _id:{
+    type:Schema.Types.ObjectId
   }
   });
 
@@ -21,7 +24,10 @@ let checkoutSchema = new Schema({
     }, 
     status: {
       type: Boolean
-    }
+    },   
+    _id:{
+      type:Schema.Types.ObjectId
+  }
   })
 
   //86400000
