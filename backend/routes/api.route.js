@@ -73,8 +73,15 @@ let mongoose = require('mongoose');
 router.route('/checkout-book').post((req, res, next) => {
 
   bookSchema.findOne({_id:req.body.book_id}).then((result) =>{
-   const book = result;
-    userSchema.findOneAndUpdate({uuid:req.body.uuid.toString()}, { $push: { checkouts: book } })
+   
+    const checkout = {
+    book: result,
+    due_date: new Date(), 
+    status: false
+
+   };
+
+    userSchema.findOneAndUpdate({uuid:req.body.uuid.toString()}, { $push: { checkouts: checkout } })
     .then((result1) =>{
       res.send(result1)
     })
