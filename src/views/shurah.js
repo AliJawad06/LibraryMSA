@@ -19,14 +19,7 @@ export default function Shurah(){
     
 
     async function checkOut(book_id){
-        axios.post(`http://localhost:4000/checkout-book`,{book_id:book_id, uuid: user.uid})
-        .then(res => {
-            console.log(res)
-            const filteredArray = data.filter(item => item._id !== book_id);   
-            setData(filteredArray);
-            setFlag(!flag)
-        })
-        .catch(err => console.log( "this is err"));
+       
     }
 
 
@@ -42,7 +35,24 @@ export default function Shurah(){
       async function getData(){
             const response = await axios.get('http://localhost:4000/get-all-checkouts');
             const dat = await response.data
-            dat.filter(checkout)
+            dat.filter((student) =>{
+              const today = new Date(); 
+              const name = student.name;
+              console.log(student)
+              for (var checkout in student.checkouts){
+                console.log(checkout + "this ")
+                const due_length = checkout.book.due_length;
+                console.log(due_length);
+                var due = new Date(today.setDate(today.getDate() + due_length))
+                const day_due = due.getDay()
+                if(day_due == 6 || day_due == 0 ){
+                  due = due.setDate(due.getDate() + (day_due % 5) + 1);
+                }
+                checkout.due_date = due
+              }
+             
+            }) 
+            console.log(dat)
             setData(dat)
             
         }
@@ -70,30 +80,7 @@ export default function Shurah(){
 return (
   <div >
     
-    {data && (
-    
-      <SimpleGrid  cols = {3}>
-        {data.map((rez,i) => (
-              <Card key = {rez._id} shadow="sm" padding="sm" radius="sm" withBorder>
-              <Card.Section component="a" href="https://mantine.dev/">
-                <Image
-                  src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-                  height={160}
-                  alt="Norway"
-                />
-              </Card.Section>
-              <Text size="sm" c="dimmed">
-                {rez.book.author}
-              </Text>
-
-              <Button onClick={() => checkOut(rez.book._id)} disabled = {user?false:true} variant="light" color="blue" fullWidth mt="md" radius="md"  >
-                Checkout Book now 
-              </Button>
-            </Card>
-        ))}
-    </SimpleGrid>
-    )}
-    <NavLink to="/user" >user</NavLink>
+    {data && <p>{console.log("hello")}</p> }
   </div>
 );
 

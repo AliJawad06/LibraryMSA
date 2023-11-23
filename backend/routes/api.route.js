@@ -31,7 +31,12 @@ let mongoose = require('mongoose');
   })
 
   router.route('/get-all-checkouts').get((req,res) =>{
-    checkoutSchema.find()
+    userSchema.find({
+      $expr: {
+        $gt: [{$size: "$checkouts"},0]
+      }
+    }
+    )
     .then((result) =>{
       res.send(result)
     })
