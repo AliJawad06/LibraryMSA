@@ -38,9 +38,8 @@ export default function Shurah(){
             dat.filter((student) =>{
               const today = new Date(); 
               const name = student.name;
-              console.log(student)
-              for (var checkout in student.checkouts){
-                console.log(checkout + "this ")
+              for(var i = 0; i < student.checkouts.length; i++) {
+                var checkout = student.checkouts[i];
                 const due_length = checkout.book.due_length;
                 console.log(due_length);
                 var due = new Date(today.setDate(today.getDate() + due_length))
@@ -49,6 +48,8 @@ export default function Shurah(){
                   due = due.setDate(due.getDate() + (day_due % 5) + 1);
                 }
                 checkout.due_date = due
+                console.log(due.toDateString())
+                console.log(JSON.stringify(checkout) + "this is checkout")
               }
              
             }) 
