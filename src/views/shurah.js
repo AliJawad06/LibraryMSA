@@ -4,7 +4,9 @@ import axios from 'axios'
 import { SimpleGrid, Card,Image,Text,Badge,Button,Group } from '@mantine/core'
 import { getAuth,onAuthStateChanged } from "firebase/auth";
 import { NavLink, redirect } from 'react-router-dom';
-
+import cx from 'clsx';
+import { Table, ScrollArea } from '@mantine/core';
+import classes from './TableScrollArea.module.css';
 
 export default function Shurah(){
 
@@ -13,6 +15,7 @@ export default function Shurah(){
     const[auth,setAuth] = useState(getAuth());
     const [isLoaded, setLoaded] = useState(false)
     const[user,setUser] = useState(getAuth().currentUser)
+    const [scrolled, setScrolled] = useState(false);
 
 
    
@@ -32,6 +35,7 @@ export default function Shurah(){
     useEffect(()=>{
 
       console.log("here")
+      const checkoutsList = [];
       async function getData(){
             const response = await axios.get('http://localhost:4000/get-all-checkouts');
             const dat = await response.data
@@ -48,13 +52,28 @@ export default function Shurah(){
                   due = due.setDate(due.getDate() + (day_due % 5) + 1);
                 }
                 checkout.due_date = due
+                checkoutsList.push(
+                {
+                  name: name, 
+                  title: checkout.book.title,
+                  due_date: due.toDateString()
+                }
+                )
                 console.log(due.toDateString())
                 console.log(JSON.stringify(checkout) + "this is checkout")
               }
-             
+              const rows = checkoutsList.map((row) => (
+                <Table.Tr key={row.name}>
+                  <Table.Td>{row.name}</Table.Td>
+                  <Table.Td>{row.title}</Table.Td>
+                  <Table.Td>{row.due_date}</Table.Td>
+                </Table.Tr>
+              ));
+                setData(rows)
+
             }) 
             console.log(dat)
-            setData(dat)
+            
             
         }
         getData();
@@ -75,13 +94,32 @@ export default function Shurah(){
       }
     });
 
+ 
 
+  
 
 
 return (
   <div >
     
-    {data && <p>{console.log("hello")}</p> }
+    {data && <div> 
+
+      <ScrollArea h={300} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
+      <Table miw={700}>
+        <Table.Thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
+          <Table.Tr>
+            <Table.Th>Name</Table.Th>
+            <Table.Th>Title</Table.Th>
+            <Table.Th>Due Date</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>{data}</Table.Tbody>
+      </Table>
+    </ScrollArea>
+
+
+    </div> 
+    }
   </div>
 );
 
