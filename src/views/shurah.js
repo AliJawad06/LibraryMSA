@@ -32,7 +32,7 @@ export default function Shurah(){
             setT1(filteredArray);
             setFlag(!flag)
         })
-        .catch(err => console.log("this is err"));
+        .catch(err => console.log(err));
        
     }
     async function deleteCO(checkout_id, name){
@@ -70,7 +70,7 @@ export default function Shurah(){
               for(var i = 0; i < student.checkouts.length; i++) {
         
                 var checkout = student.checkouts[i];
-                console.log(checkout)
+                console.log(checkout + "this is checkout")
                 const due_length = checkout.book.due_length;
                 var due = new Date(today.setDate(today.getDate() + due_length))
                 const day_due = due.getDay();
@@ -157,7 +157,7 @@ return (
             <Table.Th>Due Date</Table.Th>
           </Table.Tr>
         </Table.Thead>
-        <Table.Tbody>{t2}</Table.Tbody>
+        <Table.Tbody>{t1}</Table.Tbody>
       </Table>
     </ScrollArea>
     <ScrollArea h={300} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
@@ -169,7 +169,7 @@ return (
             <Table.Th>Due Date</Table.Th>
           </Table.Tr>
         </Table.Thead>
-        <Table.Tbody>{t1}</Table.Tbody>
+        <Table.Tbody>{t2}</Table.Tbody>
       </Table>
     </ScrollArea>
 
