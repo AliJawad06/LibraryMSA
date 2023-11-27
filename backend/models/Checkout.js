@@ -20,7 +20,7 @@ let bookSchema1 = new Schema({
       type: bookSchema1
     }, 
     due_date:{
-      type: Date
+      type: String
     }, 
     status: {
       type: Boolean

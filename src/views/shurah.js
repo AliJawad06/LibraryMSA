@@ -10,7 +10,9 @@ import classes from './TableScrollArea.module.css';
 
 export default function Shurah(){
 
-    const [data, setData] = useState();
+    const [t1, setT1] = useState();
+    const [t2, setT2] = useState();
+
     const [flag,setFlag] = useState(true);
     const[auth,setAuth] = useState(getAuth());
     const [isLoaded, setLoaded] = useState(false)
@@ -21,10 +23,31 @@ export default function Shurah(){
    
     
 
-    async function checkOut(book_id){
+    async function checkOut(checkout_id, name){
+      axios.post(`http://localhost:4000/change-status`,{checkout_id:checkout_id, name: name})
+        .then(res => {
+            console.log(res)
+            const filteredArray = t1.filter((item) => (
+              item._id !== checkout_id));   
+            setT1(filteredArray);
+            setFlag(!flag)
+        })
+        .catch(err => console.log("this is err"));
        
     }
-
+    async function deleteCO(checkout_id, name){
+      axios.post(`http://localhost:4000/delete-checkout`,{checkout_id:checkout_id, name: name})
+        .then(res => {
+            console.log(res)
+            const filteredArray = t2.filter((item) => (
+              item._id !== checkout_id));   
+            setT2(filteredArray);
+            setFlag(!flag)
+        })
+        .catch(err => console.log("this is err"));
+       
+       
+    }
 
     
    
@@ -42,37 +65,58 @@ export default function Shurah(){
             dat.filter((student) =>{
               const today = new Date(); 
               const name = student.name;
+              var t1 = []
+              var t2 = []
               for(var i = 0; i < student.checkouts.length; i++) {
+        
                 var checkout = student.checkouts[i];
+                console.log(checkout)
                 const due_length = checkout.book.due_length;
-                console.log(due_length);
                 var due = new Date(today.setDate(today.getDate() + due_length))
-                const day_due = due.getDay()
+                const day_due = due.getDay();
                 if(day_due == 6 || day_due == 0 ){
                   due = due.setDate(due.getDate() + (day_due % 5) + 1);
                 }
-                checkout.due_date = due
-                checkoutsList.push(
-                {
+                checkout.due_date = new Date(due).toDateString();
+
+                const ui_checkout = {
                   name: name, 
                   title: checkout.book.title,
-                  due_date: due.toDateString()
-                }
-                )
+                  due_date: checkout.due_date,
+                  _id: checkout._id
+                }              
+                checkout.status ? t2.push(ui_checkout) : t1.push(ui_checkout)
+
+                
+                
                 console.log(due.toDateString())
                 console.log(JSON.stringify(checkout) + "this is checkout")
               }
-              const rows = checkoutsList.map((row) => (
+               t1 = t1.map((row) => (
                 <Table.Tr key={row.name}>
                   <Table.Td>{row.name}</Table.Td>
                   <Table.Td>{row.title}</Table.Td>
                   <Table.Td>{row.due_date}</Table.Td>
+                  <Button onClick={() => checkOut(row._id, name)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+                Checkout Book now 
+              </Button>
                 </Table.Tr>
               ));
-                setData(rows)
+              t2 = t2.map((row) => (
+                <Table.Tr key={row.name}>
+                  <Table.Td>{row.name}</Table.Td>
+                  <Table.Td>{row.title}</Table.Td>
+                  <Table.Td>{row.due_date}</Table.Td>
+                  <Button onClick={() => deleteCO(row._id,name)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+                Checkout Book now 
+              </Button>
+                </Table.Tr>
+              ));
+                setT1(t1)
+                setT2(t2)
+                console.log(t1,t2)
 
             }) 
-            console.log(dat)
             
             
         }
@@ -80,7 +124,7 @@ export default function Shurah(){
 
     },[])
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => { 
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
@@ -102,7 +146,7 @@ export default function Shurah(){
 return (
   <div >
     
-    {data && <div> 
+     <div> 
 
       <ScrollArea h={300} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
       <Table miw={700}>
@@ -113,13 +157,24 @@ return (
             <Table.Th>Due Date</Table.Th>
           </Table.Tr>
         </Table.Thead>
-        <Table.Tbody>{data}</Table.Tbody>
+        <Table.Tbody>{t2}</Table.Tbody>
+      </Table>
+    </ScrollArea>
+    <ScrollArea h={300} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
+      <Table miw={700}>
+        <Table.Thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
+          <Table.Tr>
+            <Table.Th>Name</Table.Th>
+            <Table.Th>Title</Table.Th>
+            <Table.Th>Due Date</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>{t1}</Table.Tbody>
       </Table>
     </ScrollArea>
 
-
     </div> 
-    }
+    
   </div>
 );
 

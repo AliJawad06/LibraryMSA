@@ -70,13 +70,54 @@ let mongoose = require('mongoose');
 })
 
 
+router.route('/change-status').post((req,res,next) =>{
+  userSchema.findOneAndUpdate(
+    {
+      name: req.body.name.toString(),
+      'checkouts._id': req.body.checkout_id  // assuming checkoutIdToUpdate is the ID of the checkout you want to update
+    },
+    {
+      $set: {
+        'checkouts.$.status': true  // assuming newStatus is the new value for the "status" field
+      }
+    }
+  ).then((result1) =>{
+    res.send(result1)
+  })
+  .catch((err) =>{
+    console.log(err);
+  });
+});
+
+
+router.route('/delete-checkout').post((req,res,next) =>{
+  userSchema.findOneAndUpdate(
+    {
+      name: req.body.name.toString(),
+      'checkouts._id': req.body.checkout_id,
+      'checkouts.status': true
+    },
+    {
+      $pull: {
+        checkouts: { _id: req.body.checkout_id }
+      }
+    }
+  ).then((result1) =>{
+    res.send(result1)
+  })
+  .catch((err) =>{
+    console.log(err);
+  });
+});
+
+
 router.route('/checkout-book').post((req, res, next) => {
 
   bookSchema.findOne({_id:req.body.book_id}).then((result) =>{
    
     const checkout = {
     book: result,
-    due_date: new Date(), 
+    due_date: new Date().toDateString(), 
     status: false
 
    };
