@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState,useEffect,useContext,useReducer} from 'react'
 import axios from 'axios'
-import { SimpleGrid, Card,Image,Text,Badge,Button,Group } from '@mantine/core'
+import { SimpleGrid, Card,Image,Text,Badge,Button,Group,HoverCard } from '@mantine/core'
 import { getAuth,onAuthStateChanged } from "firebase/auth";
 import { NavLink } from 'react-router-dom';
 
@@ -82,7 +82,14 @@ return (
               </Card.Section>
         
               <Group justify="space-between" mt="md" mb="xs">
+              <HoverCard.Target>
                 <Text fw={500}>{book.title}</Text>
+              </HoverCard.Target>
+              <HoverCard.Dropdown>
+                  <Text size="sm">
+                   {book.description}
+                  </Text>
+                </HoverCard.Dropdown>
                 <Badge color="pink" variant="light">
                   {book.due_length}
                 </Badge>

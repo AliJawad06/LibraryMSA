@@ -9,6 +9,9 @@ let bookSchema1 = new Schema({
   },
   due_length:{
       type: Number
+  }, 
+  description:{
+    type: String
   }
   });
 
@@ -17,7 +20,7 @@ let checkoutSchema = new Schema({
       type: bookSchema1
     }, 
     due_date:{
-      type: Date
+      type: String
     }, 
     status: {
       type: Boolean

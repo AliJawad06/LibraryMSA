@@ -23,30 +23,48 @@ export default function Shurah(){
    
     
 
-    async function checkOut(checkout_id, name){
-      axios.post(`http://localhost:4000/change-status`,{checkout_id:checkout_id, name: name})
+    async function checkOut(checkout_id, name, due_length){
+      const today = new Date(); 
+
+      var due = new Date(today.setDate(today.getDate() + due_length))
+      const day_due = due.getDay();
+      if(day_due == 6 || day_due == 0 ){
+        due = due.setDate(due.getDate() + (day_due % 5) + 1);
+      }
+      due = new Date(due).toLocaleDateString()
+      axios.post(`http://localhost:4000/change-status`,{checkout_id:checkout_id, name: name, due_date: due})
         .then(res => {
-            console.log(res)
+            console.log(JSON.parse(res.data) + "this is res")
             const filteredArray = t1.filter((item) => (
               item._id !== checkout_id));   
             setT1(filteredArray);
             setFlag(!flag)
         })
         .catch(err => console.log(err));
-       
+
+        window.location.reload();
     }
+
+
+
     async function deleteCO(checkout_id, name){
+      
+
+
+
+
       axios.post(`http://localhost:4000/delete-checkout`,{checkout_id:checkout_id, name: name})
         .then(res => {
-            console.log(res)
+            console.log(JSON.parse(res.data) + "this")
             const filteredArray = t2.filter((item) => (
               item._id !== checkout_id));   
             setT2(filteredArray);
             setFlag(!flag)
         })
-        .catch(err => console.log("this is err"));
-       
-       
+        .catch(err => console.log(err));
+
+        window.location.reload();
+      
     }
 
     
@@ -63,47 +81,39 @@ export default function Shurah(){
             const response = await axios.get('http://localhost:4000/get-all-checkouts');
             const dat = await response.data
             dat.filter((student) =>{
-              const today = new Date(); 
               const name = student.name;
               var t1 = []
               var t2 = []
               for(var i = 0; i < student.checkouts.length; i++) {
         
                 var checkout = student.checkouts[i];
-                console.log(checkout + "this is checkout")
-                const due_length = checkout.book.due_length;
-                var due = new Date(today.setDate(today.getDate() + due_length))
-                const day_due = due.getDay();
-                if(day_due == 6 || day_due == 0 ){
-                  due = due.setDate(due.getDate() + (day_due % 5) + 1);
-                }
-                checkout.due_date = new Date(due).toDateString();
+                
 
                 const ui_checkout = {
                   name: name, 
                   title: checkout.book.title,
                   due_date: checkout.due_date,
-                  _id: checkout._id
+                  _id: checkout._id,
+                  due_length: checkout.book.due_length
                 }              
                 checkout.status ? t2.push(ui_checkout) : t1.push(ui_checkout)
 
                 
                 
-                console.log(due.toDateString())
                 console.log(JSON.stringify(checkout) + "this is checkout")
               }
                t1 = t1.map((row) => (
-                <Table.Tr key={row.name}>
+                <Table.Tr key={row._id}>
                   <Table.Td>{row.name}</Table.Td>
                   <Table.Td>{row.title}</Table.Td>
                   <Table.Td>{row.due_date}</Table.Td>
-                  <Button onClick={() => checkOut(row._id, name)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+                  <Button onClick={() => checkOut(row._id, name,row.due_length)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Checkout Book now 
               </Button>
                 </Table.Tr>
               ));
               t2 = t2.map((row) => (
-                <Table.Tr key={row.name}>
+                <Table.Tr key={row._id}>
                   <Table.Td>{row.name}</Table.Td>
                   <Table.Td>{row.title}</Table.Td>
                   <Table.Td>{row.due_date}</Table.Td>
@@ -172,9 +182,7 @@ return (
         <Table.Tbody>{t2}</Table.Tbody>
       </Table>
     </ScrollArea>
-
     </div> 
-    
   </div>
 );
 

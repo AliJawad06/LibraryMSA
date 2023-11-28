@@ -7,6 +7,7 @@ import Books from "./views/books";
 import User from "./views/user"
 import Shurah from "./views/shurah";
 import {useState,useContext} from "react"
+import { HeaderSimple } from "./views/header";
 
 
 
@@ -16,23 +17,20 @@ const App = () => {
 
 
   return (
-     <>    
-
+    <>
+    <HeaderSimple />
       <Router>      
         <Routes>  
-             
           <Route exact path = "/shurah" element = {<Shurah/>} />
-          <Route exact path="/sign-in" element={<SignInCopy />} />
-          <Route exact path="/sign-up" element={<SignUp />} />
-          <Route exact path="/add-book" element={<CreateBook />} />
-          <Route exact path="/books" element={<Books />} />
-          <Route exact path="/user" element={<User />} />
-
-       
+          <Route exact path = "/sign-in" element={<SignInCopy />} />
+          <Route exact path = "/sign-up" element={<SignUp />} />
+          <Route exact path = "/add-book" element={<CreateBook />} />
+          <Route exact path = "/books" element={<Books />} />
+          <Route exact path = "/user" element={<User />} />
         </Routes>
       </Router>
-      
       </>
+      
   );
 };
 

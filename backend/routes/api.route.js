@@ -78,7 +78,8 @@ router.route('/change-status').post((req,res,next) =>{
     },
     {
       $set: {
-        'checkouts.$.status': true  // assuming newStatus is the new value for the "status" field
+        'checkouts.$.status': true,
+         'checkouts.$.due_date': req.body.due_date 
       }
     }
   ).then((result1) =>{
@@ -117,9 +118,8 @@ router.route('/checkout-book').post((req, res, next) => {
    
     const checkout = {
     book: result,
-    due_date: new Date().toDateString(), 
+    due_date: "N/A", 
     status: false
-
    };
 
     userSchema.findOneAndUpdate({uuid:req.body.uuid.toString()}, { $push: { checkouts: checkout } })

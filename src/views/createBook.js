@@ -20,7 +20,8 @@ export default function SignInCopy(props) {
     defaultValues: {
       title: "",
       author: "",
-      due_length: 0
+      due_length: 0,
+      description: ""
     },
     mode:"all"
   });
@@ -107,6 +108,22 @@ signInWithEmailAndPassword(auth, email, password)
           mt="md"
           {...field}
           type = 'number'
+        />
+      }} 
+      />
+      <Controller
+      name = "description"
+      control = {control}
+      rules={{
+        required: {value: true, message:"This is required"},
+      }}
+      render={({ field,formState }) => {
+        return <TextInput
+          label="Description"
+          error = {formState.errors.name && formState.errors.name.message}
+          placeholder="Description"
+          mt="md"
+          {...field}
         />
       }} 
       />

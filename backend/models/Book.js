@@ -11,6 +11,9 @@ let bookSchema = new Schema({
     },
     due_length:{
         type: Number
+    },
+    description: {
+      type: String
     }
   }, {
       collection: 'books'
