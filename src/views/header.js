@@ -33,7 +33,7 @@ export function HeaderSimple() {
   return (
     <header className={classes.header}>
       <Container size="xxl" className={classes.inner}>
-        <MantineLogo size={28} />
+        <img src='uncmsa-LOGO.png'/>
         <Group gap={10} visibleFrom="xl">
           {items}
         </Group>
