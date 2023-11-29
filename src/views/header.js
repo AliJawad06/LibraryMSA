@@ -10,17 +10,13 @@ const links = [
 
 export function HeaderSimple() {
   const [opened, { toggle }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].link);
 
   const items = links.map((link) => (
     <a
-      key={link.label}
       href={link.link}
-      className={classes.link}
-      data-active={active === link.link || undefined}
       onClick={(event) => {
         event.preventDefault();
-        setActive(link.link);
+        window.location.href = link.link
       }}
     >
       {link.label}

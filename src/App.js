@@ -8,8 +8,7 @@ import User from "./views/user"
 import Shurah from "./views/shurah";
 import {useState,useContext} from "react"
 import { HeaderSimple } from "./views/header";
-
-
+import Home from "./views/home";
 
 
 const App = () => {
@@ -27,6 +26,7 @@ const App = () => {
           <Route exact path = "/add-book" element={<CreateBook />} />
           <Route exact path = "/books" element={<Books />} />
           <Route exact path = "/user" element={<User />} />
+          <Route exact path = "/" element={<Home />} />
         </Routes>
       </Router>
       </>
