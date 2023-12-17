@@ -32,7 +32,7 @@ export default function Shurah(){
         due = due.setDate(due.getDate() + (day_due % 5) + 1);
       }
       due = new Date(due).toLocaleDateString()
-      axios.post(`http://localhost:4000/change-status`,{checkout_id:checkout_id, name: name, due_date: due})
+      axios.post(`https://library-pdag0qw7i-alijawad06s-projects.vercel.app/change-status`,{checkout_id:checkout_id, name: name, due_date: due})
         .then(res => {
             console.log(JSON.parse(res.data) + "this is res")
             const filteredArray = t1.filter((item) => (
@@ -53,7 +53,7 @@ export default function Shurah(){
 
 
 
-      axios.post(`http://localhost:4000/delete-checkout`,{checkout_id:checkout_id, name: name})
+      axios.post(`https://library-pdag0qw7i-alijawad06s-projects.vercel.app/delete-checkout`,{checkout_id:checkout_id, name: name})
         .then(res => {
             console.log(JSON.parse(res.data) + "this")
             const filteredArray = t2.filter((item) => (
@@ -78,7 +78,7 @@ export default function Shurah(){
       console.log("here")
       const checkoutsList = [];
       async function getData(){
-            const response = await axios.get('http://localhost:4000/get-all-checkouts');
+            const response = await axios.get('https://library-pdag0qw7i-alijawad06s-projects.vercel.app/get-all-checkouts');
             const dat = await response.data
             dat.filter((student) =>{
               const name = student.name;

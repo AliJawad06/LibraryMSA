@@ -19,8 +19,8 @@ export default function User(){
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
         setUser(uid)
-        console.log("http://localhost:4000/user/" + user.uid.toString())
-         const response =  axios.get("http://localhost:4000/user/" + useruid)
+        console.log("https://library-pdag0qw7i-alijawad06s-projects.vercel.app/user/" + user.uid.toString())
+         const response =  axios.get("https://library-pdag0qw7i-alijawad06s-projects.vercel.app/user/" + useruid)
             .then((result) =>{
               console.log(JSON.stringify(result) + "this is user Data")
             });

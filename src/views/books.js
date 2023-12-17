@@ -19,7 +19,7 @@ export default function Books(){
     
 
     async function checkOut(book_id){
-        axios.post(`http://localhost:4000/checkout-book`,{book_id:book_id, uuid: user.uid})
+        axios.post(`https://library-pdag0qw7i-alijawad06s-projects.vercel.app/checkout-book`,{book_id:book_id, uuid: user.uid})
         .then(res => {
             console.log(res)
             const filteredArray = data.filter(item => item._id !== book_id);   
@@ -40,7 +40,7 @@ export default function Books(){
 
       console.log("here")
       async function getData(){
-            const response = await axios.get('http://localhost:4000/get-books');
+            const response = await axios.get('https://library-pdag0qw7i-alijawad06s-projects.vercel.app/get-books');
             const dat = await response.data
             setData(dat)
             
