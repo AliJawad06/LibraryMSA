@@ -30,7 +30,7 @@ export default function SignUp(props) {
     createUserWithEmailAndPassword(auth, data.email, data.password)
     .then((userCredential) => {
       const user = userCredential.user;
-      axios.post(`https://library-pdag0qw7i-alijawad06s-projects.vercel.app/add-user`,{name:data.name,uuid:user.uid,email:data.email})
+      axios.post(`http://localhost:4000/add-user`,{name:data.name,uuid:user.uid,email:data.email})
         .then(res => {
           console.log("success")
         })

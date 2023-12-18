@@ -4,18 +4,21 @@ let cors = require('cors');
 let bodyParser = require('body-parser');
 const createError = require('http-errors');
 const userRoute = require('./routes/api.route')
-
+const dotenv = require('dotenv').config()
 
 // Express Route
 
 // Connecting mongoDB Database
+
+const db = process.env.MONGODB_URI
+
 mongoose
-  .connect('mongodb+srv://ajawad:carcar123@cluster0.y0upwut.mongodb.net/?retryWrites=true&w=majority')
+  .connect(db)
   .then((x) => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
   .catch((err) => {
-    console.error('Error connecting to mongo', err.reason)
+    console.error('Error connecting to mongo', err)
   })
 
 const app = express();
