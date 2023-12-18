@@ -5,7 +5,7 @@ import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot( document.getElementById('root'));
 root.render(
   <MantineProvider defaultColorScheme="dark">
     <App />
