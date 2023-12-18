@@ -7,6 +7,10 @@ let mongoose = require('mongoose');
   router = express.Router()
 
   
+  router.route('/').post((req, res, next) => {
+    res.send('hello')
+})
+
   router.route('/add-book').post((req, res, next) => {
     bookSchema.create(req.body)
     .then((result) =>{
