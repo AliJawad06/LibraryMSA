@@ -5,10 +5,10 @@ let mongoose = require('mongoose');
   let userSchema = require('../models/User')
   let checkoutSchema = require('../models/Checkout')
   router = express.Router()
-
+  app = express();
   
-  router.route('/').post((req, res, next) => {
-    res.send('hello')
+  app.route('/').post((req, res, next) => {
+    res.json('hello')
 })
 
   router.route('/add-book').post((req, res, next) => {
