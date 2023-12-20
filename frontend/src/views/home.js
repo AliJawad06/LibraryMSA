@@ -1,5 +1,7 @@
 import React from "react";
 import { Text,Center } from "@mantine/core";
+import { API_URL } from '../shared/url';
+
 export default function Home() {
 
 

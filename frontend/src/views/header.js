@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Container, Group, Burger } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './HeaderSimple.module.css';
+import { API_URL } from '../shared/url';
 
 const links = [
   { link: '/', label: 'Home' },

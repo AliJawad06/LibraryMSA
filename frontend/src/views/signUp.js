@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import app from "../shared/firebaseConfig/firebase";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { API_URL } from '../shared/url';
 
 export default function SignUp(props) {
   // { console.log(props + "this is props")}
@@ -30,7 +31,7 @@ export default function SignUp(props) {
     createUserWithEmailAndPassword(auth, data.email, data.password)
     .then((userCredential) => {
       const user = userCredential.user;
-      axios.post(`http://localhost:4000/add-user`,{name:data.name,uuid:user.uid,email:data.email})
+      axios.post(API_URL + '/add-user',{name:data.name,uuid:user.uid,email:data.email})
         .then(res => {
           console.log("success")
         })
