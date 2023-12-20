@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors({
-  origin: 'backend-alijawad06s-projects.vercel.app'
+  origin: 'https://backend-alijawad06s-projects.vercel.app/'
 }));
 app.use(userRoute);
 
