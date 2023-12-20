@@ -5,6 +5,8 @@ let bodyParser = require('body-parser');
 const createError = require('http-errors');
 const userRoute = require('./routes/api.route')
 const dotenv = require('dotenv').config()
+const app = express();
+app.use(cors());
 
 // Express Route
 
@@ -21,9 +23,7 @@ mongoose
     console.error('Error connecting to mongo', err)
   })
 
-const app = express();
 
-app.use(cors());
 
 app.route('/').get((req, res, next) => {
   res.json('hello')
