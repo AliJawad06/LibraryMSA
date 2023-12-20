@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({
 
 
 app.use(cors({
-  origin: 'https://frontend-alijawad06s-projects.vercel.app/'
+  origin: 'https://frontend-alijawad06s-projects.vercel.app'
 }));
 app.use(userRoute);
 
