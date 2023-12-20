@@ -54,7 +54,7 @@ export default function Shurah(){
 
 
 
-      axios.post(API_URL + '/delete-checkout`,{checkout_id:checkout_id, name: name})
+      axios.post(API_URL + '/delete-checkout',{checkout_id:checkout_id, name: name})
         .then(res => {
             console.log(JSON.parse(res.data) + "this")
             const filteredArray = t2.filter((item) => (
