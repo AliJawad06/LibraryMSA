@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cors({
-  origin: 'https://backend-mauve-eta.vercel.app/'
+  origin: 'backend-alijawad06s-projects.vercel.app'
 }));
 app.use(userRoute);
 
