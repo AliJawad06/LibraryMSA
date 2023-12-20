@@ -22,14 +22,22 @@ mongoose
   })
 
 const app = express();
+app.route('/').get((req, res, next) => {
+  res.json('hello')
+})
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+
 app.use(cors({
   origin: 'https://backend-alijawad06s-projects.vercel.app/'
 }));
 app.use(userRoute);
+
+
 
 
 // PORT
