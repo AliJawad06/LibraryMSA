@@ -22,6 +22,9 @@ mongoose
   })
 
 const app = express();
+
+app.use(cors());
+
 app.route('/').get((req, res, next) => {
   res.json('hello')
 })
@@ -32,9 +35,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-app.use(cors({
-  origin: 'https://frontend-alijawad06s-projects.vercel.app'
-}));
 app.use(userRoute);
 
 
