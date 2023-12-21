@@ -19,6 +19,10 @@ let mongoose = require('mongoose');
 })
 
   router.route('/get-books').get((req,res) =>{
+    res.setHeader('Access-Control-Allow-Origin', 'https://frontend-alijawad06s-projects.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    
     bookSchema.find()
     .then((result) =>{
       res.send(result)
