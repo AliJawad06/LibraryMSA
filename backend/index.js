@@ -12,7 +12,7 @@ app.use(cors());
 
 // Connecting mongoDB Database
 
-const db = process.env.MONGODB_URI
+const db = process.env.MONGODB_URI.toString()
 
 mongoose
   .connect(db)
