@@ -28,7 +28,7 @@ export default function SignInCopy(props) {
     mode:"all"
   });
   const onSubmit = (data) => {
-    const book = {...data, checkedOut: true};
+    const book = {...data, checkedOut: false};
     console.log(book)
     axios.post(API_URL + '/add-book',book)
         .then(res => {
