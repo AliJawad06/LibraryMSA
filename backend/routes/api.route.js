@@ -20,7 +20,7 @@ let mongoose = require('mongoose');
 
   router.route('/get-books').get((req,res) =>{
     
-    bookSchema.find()
+    bookSchema.find({checkedOut: false})
     .then((result) =>{
     res.setHeader('Access-Control-Allow-Origin', 'https://frontend-alijawad06s-projects.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -110,7 +110,7 @@ router.route('/delete-checkout').post((req,res,next) =>{
       }
     }
   ).then((result1) =>{
-    res.send(result1)
+    
   })
   .catch((err) =>{
     console.log(err);
@@ -136,7 +136,7 @@ router.route('/checkout-book').post((req, res, next) => {
       console.log(err);
     })
     
-     bookSchema.deleteOne({_id:req.body.book_id})
+     bookSchema.findOneAndUpdate({_id:req.body.book_id}, {checkedOut:false})
      .then((result) =>{
        console.log(result)
      })

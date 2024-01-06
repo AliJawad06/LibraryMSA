@@ -6,6 +6,9 @@ let bookSchema = new Schema({
     title: {
       type: String
     },
+    checkedOut: {
+      type: Boolean
+    },
     author: {
       type: String
     },
