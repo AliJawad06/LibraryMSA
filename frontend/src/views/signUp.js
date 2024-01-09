@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification,onAuthStateChanged } from "firebase/auth";
 import axios from 'axios'
 import {
   Fieldset,
