@@ -56,7 +56,8 @@ export default function SignUp(props) {
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.email;
       const {email, emailVerified} = user;
-      user.emailVerified ? (setG(true), setF(false)) : null;
+      user.emailVerified && (setG(true), setF(false));
+
       
       // ...
     } else {
