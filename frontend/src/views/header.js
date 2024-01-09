@@ -6,6 +6,8 @@ import classes from './HeaderSimple.module.css';
 
 const links = [
   { link: '/books', label: 'Books' },
+  { link: '/sign-up', label: 'Sign Up' },
+  { link: '/sign-in', label: 'Sign In' },
   { link: '/', label: 'Home' },
 ];
 
