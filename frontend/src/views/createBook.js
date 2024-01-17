@@ -8,6 +8,7 @@ import {
   TextInput,
   Button,
   Group,
+  FileInput,
   MantineProvider,
 } from "@mantine/core";
 import app from "../shared/firebaseConfig/firebase";
@@ -23,11 +24,14 @@ export default function SignInCopy(props) {
       title: "",
       author: "",
       due_length: 0,
-      description: ""
+      description: "",
+      file_name: "",
     },
     mode:"all"
   });
+
   const onSubmit = (data) => {
+
     const book = {...data, checkedOut: false};
     console.log(book)
     axios.post(API_URL + '/add-book',book)
@@ -36,7 +40,20 @@ export default function SignInCopy(props) {
                     
         })
         .catch(err => console.log(err));
- 
+        const formData = new FormData();
+        formData.append('file', fs.createReadStream('./poopoopeepee'));
+
+        fetch('https://api.cloudflare.com/client/v4/accounts/e1565db10158f41be265d7af3675a32a/images/v1', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer weeAgpLjnq6nykYpEpKLfLcfEgPcBAdZIDb76Q-t',
+          },
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+              
   }   
 
   
@@ -128,6 +145,21 @@ signInWithEmailAndPassword(auth, email, password)
           mt="md"
           {...field}
         />
+      }} 
+      />
+      <Controller
+      name = "file_name"
+      control = {control}
+      rules={{
+        required: {value: true, message:"This is required"},
+      }}
+      render={({ field,formState }) => {
+        return <FileInput
+        placeholder="Pick file"
+        label="Your resume"
+        withAsterisk
+        {...field}
+      />
       }} 
       />
       <Group justify="flex-end" mt="md">
