@@ -37,7 +37,7 @@ export default function SignInCopy(props) {
   }
 
   const onSubmit = (data) => {
-    setUploadImage(file)
+    
 
     const book = {...data, checkedOut: false};
     console.log(book)
