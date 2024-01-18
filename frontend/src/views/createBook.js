@@ -18,6 +18,7 @@ export default function SignInCopy(props) {
   // { console.log(props + "this is props")}
 
   const [isG, setG] = useState();
+  const [uploadImage, setUploadImage] = useState()
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -30,7 +31,13 @@ export default function SignInCopy(props) {
     mode:"all"
   });
 
+  const uploadFile = file => {
+    const preview = URL.createObjectURL(file)
+    setUploadImage(file)
+  }
+
   const onSubmit = (data) => {
+    setUploadImage(file)
 
     const book = {...data, checkedOut: false};
     console.log(book)
@@ -41,7 +48,7 @@ export default function SignInCopy(props) {
         })
         .catch(err => console.log(err));
         const formData = new FormData();
-        formData.append('file', fs.createReadStream('./poopoopeepee'));
+        formData.append('file', uploadImage);
 
         fetch('https://api.cloudflare.com/client/v4/accounts/e1565db10158f41be265d7af3675a32a/images/v1', {
           method: 'POST',
@@ -142,6 +149,8 @@ signInWithEmailAndPassword(auth, email, password)
           label="Description"
           error = {formState.errors.name && formState.errors.name.message}
           placeholder="Description"
+          value={uploadImage}
+          onChange={uploadFile}
           mt="md"
           {...field}
         />
