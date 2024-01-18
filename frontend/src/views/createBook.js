@@ -56,6 +56,7 @@ export default function SignInCopy(props) {
             'Authorization': 'Bearer weeAgpLjnq6nykYpEpKLfLcfEgPcBAdZIDb76Q-t',
           },
           body: formData,
+          referrerPolicy: 'no-referrer'
         })
         .then(response => response.json())
         .then(data => console.log(data))
