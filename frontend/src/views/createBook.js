@@ -48,6 +48,7 @@ export default function SignInCopy(props) {
         })
         .catch(err => console.log(err));
         const formData = new FormData();
+        console.log(uploadImage)
         formData.append('file', uploadImage);
 
         fetch('https://api.cloudflare.com/client/v4/accounts/e1565db10158f41be265d7af3675a32a/images/v1', {
