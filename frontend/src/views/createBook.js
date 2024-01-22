@@ -2,7 +2,8 @@ import React from "react";
 import { useEffect, useState, useContext } from "react";
 import axios from 'axios'
 import { API_URL } from '../shared/url';
-
+import {s3Client} from '../shared/amazonConfig/awsConfig'
+import {PutObjectCommand} from '@aws-sdk/client-s3'
 import {
   Fieldset,
   TextInput,
@@ -47,21 +48,25 @@ export default function SignInCopy(props) {
                     
         })
         .catch(err => console.log(err));
-        const formData = new FormData();
-        console.log(uploadImage)
-        formData.append('file', uploadImage);
+        const bucketName = "amplify-myapp-dev-162423-deployment";
+        const fileName = data.file_name.name;
+    
+        const params = {
+          Bucket: bucketName,
+          Key: fileName,
+          Body: data.file_name,
+        };
+    
+  s3Client.send(new PutObjectCommand(params))
+  .then(response => {
+    console.log("Upload successful", response);
+  })
+  .catch(error => {
+    console.error("Error uploading file", error);
+  });
+        
 
-        fetch('https://api.cloudflare.com/client/v4/accounts/e1565db10158f41be265d7af3675a32a/images/v1', {
-          method: 'POST',
-          headers: {
-            'Authorization': 'Bearer weeAgpLjnq6nykYpEpKLfLcfEgPcBAdZIDb76Q-t',
-          },
-          body: formData,
-          referrerPolicy: 'no-referrer'
-        })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
+        
               
   }   
 
@@ -87,7 +92,6 @@ signInWithEmailAndPassword(auth, email, password)
     });
    
   }*/
-
   return (
   
     <Fieldset legend="Personal information">
