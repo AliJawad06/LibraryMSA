@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState, useContext } from "react";
 import axios from 'axios'
 import { API_URL } from '../shared/url';
-import {s3Client} from '../shared/amazonConfig/awsConfig'
+import {client} from '../shared/amazonConfig/awsConfig'
 import {PutObjectCommand} from '@aws-sdk/client-s3'
 import {
   Fieldset,
@@ -57,7 +57,7 @@ export default function SignInCopy(props) {
           Body: data.file_name,
         };
     
-  s3Client.send(new PutObjectCommand(params))
+  client.send(new PutObjectCommand(params))
   .then(response => {
     console.log("Upload successful", response);
   })

@@ -8,6 +8,6 @@ const awsConfig = {
   },
 };
 
-const s3Client = new S3Client(awsConfig);
+const client = new S3Client(awsConfig);
 
-export default s3Client;
+export default client;
