@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState, useContext } from "react";
 import axios from 'axios'
 import { API_URL } from '../shared/url';
-import {client} from '../shared/amazonConfig/awsConfig'
+import client from '../shared/amazonConfig/awsConfig'
 import {PutObjectCommand} from '@aws-sdk/client-s3'
 import {
   Fieldset,
