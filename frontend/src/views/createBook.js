@@ -31,7 +31,7 @@ export default function SignInCopy(props) {
     },
     mode:"all"
   });
-
+    console.log(client + "This is client")
   const uploadFile = file => {
     const preview = URL.createObjectURL(file)
     setUploadImage(file)
@@ -39,7 +39,6 @@ export default function SignInCopy(props) {
 
   const onSubmit = (data) => {
     
-
     const book = {...data, checkedOut: false};
     console.log(book)
     axios.post(API_URL + '/add-book',book)
