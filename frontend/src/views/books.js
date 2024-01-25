@@ -45,7 +45,10 @@ export default function Books(){
             const dat = await response.data
             const command = new ListObjectsV2Command({Bucket: "msalibrary"});
             const imagesresponse = await client.send(command);
-            console.log(imagesresponse)
+            console.log(imagesresponse.Contents)
+            console.log('%c ', 'font-size:400px; background:url("Screen Shot 2023-12-28 at 10.00.27 AM.png") no-repeat;');
+
+
             setData(dat)
             
         }
