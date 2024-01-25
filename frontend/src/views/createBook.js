@@ -49,20 +49,25 @@ export default function SignInCopy(props) {
         .catch(err => console.log(err));
         const bucketName = "amplify-myapp-dev-162423-deployment";
         const fileName = data.file_name.name;
-    
+        
         const params = {
           Bucket: bucketName,
           Key: fileName,
           Body: data.file_name,
         };
-    
-  client.send(new PutObjectCommand(params))
-  .then(response => {
-    console.log("Upload successful", response);
-  })
-  .catch(error => {
-    console.error("Error uploading file", error);
-  });
+        
+        const headers = {
+          "Content-Type": data.file_name.type, // Set the content type based on your file type
+          "Authorization": "Bearer YOUR_ACCESS_TOKEN", // Add any necessary authorization headers
+        };
+        
+        client.send(new PutObjectCommand({ ...params, headers }))
+          .then(response => {
+            console.log("Upload successful", response);
+          })
+          .catch(error => {
+            console.error("Error uploading file", error);
+          });
         
 
         
