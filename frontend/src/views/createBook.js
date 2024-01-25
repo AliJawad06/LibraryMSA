@@ -56,12 +56,9 @@ export default function SignInCopy(props) {
           Body: data.file_name,
         };
         
-        const headers = {
-          "Content-Type": data.file_name.type, // Set the content type based on your file type
-          "Authorization": "Bearer YOUR_ACCESS_TOKEN", // Add any necessary authorization headers
-        };
-        
-        client.send(new PutObjectCommand({ ...params, headers }))
+       
+      
+        client.send(new PutObjectCommand(params))
           .then(response => {
             console.log("Upload successful", response);
           })
