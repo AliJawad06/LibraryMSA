@@ -47,7 +47,7 @@ export default function SignInCopy(props) {
                     
         })
         .catch(err => console.log(err));
-        const bucketName = "amplify-myapp-dev-162423-deployment";
+        const bucketName = "msalibrary";
         const fileName = data.file_name.name;
         
         const params = {
