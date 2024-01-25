@@ -5,7 +5,8 @@ import { HoverCard, SimpleGrid, Card,Image,Text,Badge,Button,Group} from '@manti
 import { getAuth,onAuthStateChanged } from "firebase/auth";
 import { NavLink } from 'react-router-dom';
 import { API_URL } from '../shared/url';
-
+import client from '../shared/amazonConfig/awsConfig'
+import {ListObjectsV2Command} from '@aws-sdk/client-s3'
 export default function Books(){
 
     const [data, setData] = useState();
@@ -42,6 +43,9 @@ export default function Books(){
       async function getData(){
             const response = await axios.get(API_URL + '/get-books');
             const dat = await response.data
+            const command = new ListObjectsV2Command({Bucket: "msalibrary"});
+            const imagesresponse = await client.send(command);
+            console.log(imagesresponse)
             setData(dat)
             
         }
