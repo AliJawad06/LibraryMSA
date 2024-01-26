@@ -45,7 +45,7 @@ export default function Books(){
             const dat = await response.data
             const command = new ListObjectsV2Command({Bucket: "msalibrary"});
             const imagesresponse = await client.send(command);
-            console.log(imagesresponse.Contents)
+            console.log(imagesresponse)
             console.log('%c ', 'font-size:400px; background:url("Screen Shot 2023-12-28 at 10.00.27 AM.png") no-repeat;');
 
 
@@ -71,7 +71,7 @@ return (
               <Card key = {book._id} shadow="sm" padding="sm" radius="sm" withBorder>
               <Card.Section component="a" href="https://mantine.dev/">
                 <Image
-                  src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
+                  src={book.file_name}
                   height={160}
                   alt="Norway"
                 />

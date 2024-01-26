@@ -38,8 +38,9 @@ export default function SignInCopy(props) {
   }
 
   const onSubmit = (data) => {
-    
-    const book = {...data, checkedOut: false};
+    const host = "https://msalibrary.s3.amazonaws.com/"
+    const body = data.file_name
+    const book = {...data,file_name:host + data.title + ".png",checkedOut: false};
     console.log(book)
     axios.post(API_URL + '/add-book',book)
         .then(res => {
@@ -48,12 +49,11 @@ export default function SignInCopy(props) {
         })
         .catch(err => console.log(err));
         const bucketName = "msalibrary";
-        const fileName = data.file_name.name;
-        
+
         const params = {
           Bucket: bucketName,
-          Key: fileName,
-          Body: data.file_name,
+          Key: host + data.title + ".png",
+          Body: body,
         };
         
        

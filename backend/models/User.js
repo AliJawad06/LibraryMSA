@@ -12,6 +12,9 @@ let bookSchema1 = new Schema({
   }, 
   description:{
     type: String
+  }, 
+  url:{
+    type: String
   }
   });
 
