@@ -40,7 +40,9 @@ export default function SignInCopy(props) {
   const onSubmit = (data) => {
     const host = "https://msalibrary.s3.amazonaws.com/"
     const body = data.file_name
-    const book = {...data,file_name:host + data.title + ".png",checkedOut: false};
+    
+    s.replace()
+    const book = {...data,file_name:host + data.title.replace(/ /g, "+") + ".png",checkedOut: false};
     console.log(book)
     axios.post(API_URL + '/add-book',book)
         .then(res => {
