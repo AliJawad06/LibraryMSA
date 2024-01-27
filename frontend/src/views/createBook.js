@@ -52,7 +52,7 @@ export default function SignInCopy(props) {
 
         const params = {
           Bucket: bucketName,
-          Key: host + data.title + ".png",
+          Key:  data.title + ".png",
           Body: body,
         };
         
