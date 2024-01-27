@@ -17,6 +17,9 @@ let bookSchema = new Schema({
     },
     description: {
       type: String
+    },
+    file_name: {
+      type: String
     }
   }, {
       collection: 'books'
