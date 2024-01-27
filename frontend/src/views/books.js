@@ -13,7 +13,7 @@ export default function Books(){
     const [flag,setFlag] = useState(true);
     const[auth,setAuth] = useState(getAuth());
     const [isLoaded, setLoaded] = useState(false)
-    const[user,setUser] = useState(getAuth().currentUser)
+    const[user,setUser] = useState()
 
 
    
@@ -57,7 +57,19 @@ export default function Books(){
     },[])
 
    
-
+ onAuthStateChanged(auth, (user) => { 
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.email;
+        if(user.emailVerified){
+            setUser(user) 
+        }
+        
+      } else {
+        //redirect('http://localhost:3000/books')
+      }
+    });
 
 
 
@@ -100,7 +112,7 @@ return (
                 {book.author}
               </Text>
 
-              <Button onClick={() => checkOut(book._id)} disabled = {user.emailVerified?false:true} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+              <Button onClick={() => checkOut(book._id)} disabled = {user ? false:true} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Checkout Book now 
               </Button>
             </Card>
