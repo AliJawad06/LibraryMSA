@@ -13,7 +13,7 @@ let bookSchema1 = new Schema({
   description:{
     type: String
   }, 
-  url:{
+  file_name:{
     type: String
   }
   });
