@@ -51,10 +51,7 @@ export default function Books(){
       async function getData(){
             const response = await axios.get(API_URL + '/get-books');
             const dat = await response.data
-            const command = new ListObjectsV2Command({Bucket: "msalibrary"});
-            const imagesresponse = await client.send(command);
-            console.log(imagesresponse)
-            console.log('%c ', 'font-size:400px; background:url("Screen Shot 2023-12-28 at 10.00.27 AM.png") no-repeat;');
+           
 
 
             setData(dat)
@@ -71,13 +68,14 @@ export default function Books(){
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.email;
         if(user.emailVerified){
+            console.log("user is verified")
             setUser(user) 
                const userID = user.uid
               // Replace 'your_server_url' with the actual URL where your Express server is running
               axios.get(API_URL + "getUserCheckoutsSize/" + userID)
                 .then(response => {
                   setCheckoutsSize(response.data.checkoutsSize);
-                  console.log(response.data.checkoutsSize)
+                  console.log(response.data.checkoutsSize + "this is checkoutSize")
                   if(checkoutsSize > 2){
                     setIsDisabled(true)
                   }
