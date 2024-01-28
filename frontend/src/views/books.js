@@ -140,7 +140,6 @@ return (
         ))}
     </SimpleGrid>
     )}
-    <NavLink to="/user" >user</NavLink>
   </div>
 );
 
