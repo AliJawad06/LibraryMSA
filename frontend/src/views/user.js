@@ -20,7 +20,7 @@ export default function User(){
         const uid = user.uid;
         setUser(uid)
         console.log("API_URLuser/" + user.uid.toString())
-         const response =  axios.get("API_URLuser/" + useruid)
+         const response =  axios.get(API_URL + "user/" + useruid)
             .then((result) =>{
               console.log(JSON.stringify(result) + "this is user Data")
             });

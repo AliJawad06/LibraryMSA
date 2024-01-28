@@ -74,7 +74,7 @@ export default function Books(){
             setUser(user) 
                userID = user.uid
               // Replace 'your_server_url' with the actual URL where your Express server is running
-              axios.get(API_URL + "getUserCheckoutsSize/${userId}")
+              axios.get(API_URL + "getUserCheckoutsSize/" + userID)
                 .then(response => {
                   setCheckoutsSize(response.data.checkoutsSize);
                   console.log(response.data.checkoutsSize)
