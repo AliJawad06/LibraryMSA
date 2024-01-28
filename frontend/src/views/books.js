@@ -15,6 +15,7 @@ export default function Books(){
     const [isLoaded, setLoaded] = useState(false)
     const [checkoutsSize, setCheckoutsSize] = useState(null);
     const [isDisabled, setIsDisabled] = useState(true);
+    const [user, setUser] = useState(null)
 
 
 
