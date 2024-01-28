@@ -14,6 +14,10 @@ export default function Books(){
     const[auth,setAuth] = useState(getAuth());
     const [isLoaded, setLoaded] = useState(false)
     const[user,setUser] = useState()
+    const [checkoutsSize, setCheckoutsSize] = useState(null);
+    const [isDisabled, setIsDisabled] = useState(true);
+
+
 
 
    
@@ -26,6 +30,10 @@ export default function Books(){
             const filteredArray = data.filter(item => item._id !== book_id);   
             setData(filteredArray);
             setFlag(!flag)
+            setCheckoutsSize(checkoutsSize + 1)
+            if(checkoutsSize > 2){
+              setDisabled(true)
+            }
         })
         .catch(err => console.log( "this is err"));
     }
@@ -64,6 +72,22 @@ export default function Books(){
         const uid = user.email;
         if(user.emailVerified){
             setUser(user) 
+           
+              // Replace 'your_server_url' with the actual URL where your Express server is running
+              axios.get(`http://your_server_url/getUserCheckoutsSize/${userId}`)
+                .then(response => {
+                  setCheckoutsSize(response.data.checkoutsSize);
+                  if(checkoutsSize > 2){
+                    setDisabled(true)
+                  }
+                })
+                .catch(error => {
+                  console.error('Error fetching data:', error);
+                  // Handle the error state if necessary
+                });
+            
+          
+
         }
         
       } else {
