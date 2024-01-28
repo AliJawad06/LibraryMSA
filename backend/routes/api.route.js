@@ -126,10 +126,10 @@ router.route('/delete-checkout').post((req,res,next) =>{
 
 router.route('/getUserCheckoutsSize/:userId').get(  (req, res) => {
   const userId = req.params.userId;
-  console.log("this is userID in the backend")
+  res.send(1)
 
   // Find the user by their ID using promises
-  userSchema.findById(userId)
+  /*userSchema.findById(userId)
       .then(user => {
           if (!user) {
               return res.status(404).json({ message: 'User not found' });
@@ -143,7 +143,7 @@ router.route('/getUserCheckoutsSize/:userId').get(  (req, res) => {
       .catch(error => {
           console.error(error);
           res.status(500).json({ message: 'Internal Server Error' });
-      });
+      });*/
 });
 
 router.route('/checkout-book').post((req, res, next) => {
