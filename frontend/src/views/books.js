@@ -13,7 +13,6 @@ export default function Books(){
     const [flag,setFlag] = useState(true);
     const[auth,setAuth] = useState(getAuth());
     const [isLoaded, setLoaded] = useState(false)
-    const[user,setUser] = useState()
     const [checkoutsSize, setCheckoutsSize] = useState(null);
     const [isDisabled, setIsDisabled] = useState(true);
 
@@ -70,9 +69,8 @@ export default function Books(){
         if(user.emailVerified){
             console.log("user is verified")
             setUser(user) 
-               const userID = user.uid
-              // Replace 'your_server_url' with the actual URL where your Express server is running
-              axios.get(API_URL + "getUserCheckoutsSize/" + userID)
+            const userID = user.uid
+              axios.get(API_URL + "/getUserCheckoutsSize/" + userID)
                 .then(response => {
                   setCheckoutsSize(response.data.checkoutsSize);
                   console.log(response.data.checkoutsSize + "this is checkoutSize")
