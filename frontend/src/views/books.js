@@ -72,7 +72,7 @@ export default function Books(){
         const uid = user.email;
         if(user.emailVerified){
             setUser(user) 
-               userID = user.uid
+               const userID = user.uid
               // Replace 'your_server_url' with the actual URL where your Express server is running
               axios.get(API_URL + "getUserCheckoutsSize/" + userID)
                 .then(response => {
