@@ -127,7 +127,7 @@ router.route('/delete-checkout').post((req,res,next) =>{
 router.route('/getUserCheckoutsSize/:userId').get(  (req, res) => {
   const userId = req.params.userId;
   console.log(userId)
-  res.send(1)
+  res.send(userId)
   
 
   // Find the user by their ID using promises
