@@ -3,7 +3,7 @@ import { useState,useEffect,useContext,useReducer} from 'react'
 import axios from 'axios'
 import { SimpleGrid, Card,Image,Text,Badge,Button,Group } from '@mantine/core'
 import { getAuth,onAuthStateChanged } from "firebase/auth";
-
+import { API_URL } from '../shared/url';
 export default function User(){
 
     const [data, setData] = useState()
