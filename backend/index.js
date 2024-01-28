@@ -6,7 +6,7 @@ const createError = require('http-errors');
 const userRoute = require('./routes/api.route')
 const dotenv = require('dotenv').config()
 const app = express();
-app.use(cors());
+app.use(cors({allowedHeaders: '*'}));
 
 // Express Route
 
