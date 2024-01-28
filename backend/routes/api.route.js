@@ -24,10 +24,6 @@ let mongoose = require('mongoose');
     
     bookSchema.find({checkedOut: false})
     .then((result) =>{
-    res.setHeader('Access-Control-Allow-Origin', 'https://msalibrary.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    
       res.send(result)
     })
     .catch((err) =>{
@@ -55,9 +51,7 @@ let mongoose = require('mongoose');
   })
 
   router.route('/user/:userId').get((req,res) =>{
-    res.setHeader('Access-Control-Allow-Origin', 'https://msalibrary.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    
     
     const userId = req.params.userId
     userSchema.findOne({uuid: userId})
@@ -126,19 +120,19 @@ router.route('/delete-checkout').post((req,res,next) =>{
 
 router.route('/getUserCheckoutsSize/:userId').get(  (req, res) => {
   const userId = req.params.userId;
-  
-  
+
   // Find the user by their ID using promises
-  userSchema.findById(userId)
+  userSchema.findOne({uuid: userId})
       .then(user => {
           if (!user) {
               return res.status(404).json({ message: 'User not found' });
           }
 
           // Get the size of the checkouts array
+          console.log(user + "this is the user in backend")
           const checkoutsSize = user.checkouts.length;
-
-          res.send({ userId, checkoutsSize });
+         console.log(checkoutsSize + "this is checkouts size")
+          res.send({checkoutsSize: checkoutsSize});
       })
       .catch(error => {
           console.error(error);

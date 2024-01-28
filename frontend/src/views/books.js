@@ -6,7 +6,7 @@ import { getAuth,onAuthStateChanged } from "firebase/auth";
 import { NavLink } from 'react-router-dom';
 import { API_URL } from '../shared/url';
 import client from '../shared/amazonConfig/awsConfig'
-import {ListObjectsV2Command} from '@aws-sdk/client-s3'
+import classes from './booksStyling.module.css'
 export default function Books(){
 
     const [data, setData] = useState();
@@ -14,7 +14,7 @@ export default function Books(){
     const[auth,setAuth] = useState(getAuth());
     const [isLoaded, setLoaded] = useState(false)
     const [checkoutsSize, setCheckoutsSize] = useState(null);
-    const [isDisabled, setIsDisabled] = useState(true);
+    const [isDisabled, setIsDisabled] = useState(false);
     const [user, setUser] = useState(null)
 
 
@@ -26,7 +26,6 @@ export default function Books(){
     async function checkOut(book_id){
         axios.post(API_URL + '/checkout-book',{book_id:book_id, uuid: user.uid})
         .then(res => {
-            console.log(res)
             const filteredArray = data.filter(item => item._id !== book_id);   
             setData(filteredArray);
             setFlag(!flag)
@@ -100,7 +99,7 @@ return (
     
     {data && (
     
-      <SimpleGrid  cols = {3}>
+      <SimpleGrid className= {classes.bookcontainer} cols = {5}>
         {data.map((book,i) => (
               <Card key = {book._id} shadow="sm" padding="sm" radius="sm" withBorder>
               <Card.Section component="a" href="https://mantine.dev/">

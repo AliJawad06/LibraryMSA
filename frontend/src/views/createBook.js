@@ -14,12 +14,14 @@ import {
 } from "@mantine/core";
 import app from "../shared/firebaseConfig/firebase";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import classes from './booksStyling.module.css'
 
 export default function SignInCopy(props) {
   // { console.log(props + "this is props")}
 
   const [isG, setG] = useState();
   const [uploadImage, setUploadImage] = useState()
+  
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -46,7 +48,7 @@ export default function SignInCopy(props) {
     console.log(book)
     axios.post(API_URL + '/add-book',book)
         .then(res => {
-        console.log(res.data + " this is second res.data");
+        setG(true)
                     
         })
         .catch(err => console.log(err));
@@ -97,7 +99,7 @@ signInWithEmailAndPassword(auth, email, password)
   }*/
   return (
   
-    <Fieldset legend="Personal information">
+    <Fieldset className={classes.formcontainer} legend="Book Information">
       <Controller
       name = "title"
       control = {control}
@@ -174,7 +176,7 @@ signInWithEmailAndPassword(auth, email, password)
       render={({ field,formState }) => {
         return <FileInput
         placeholder="Pick file"
-        label="Your resume"
+        label="Book Data"
         withAsterisk
         {...field}
       />
@@ -185,6 +187,7 @@ signInWithEmailAndPassword(auth, email, password)
           Submit
         </Button>
       </Group>
+      {isG && <p color="green">Success</p>}
     </Fieldset>
     
   );

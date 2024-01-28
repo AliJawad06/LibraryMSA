@@ -11,7 +11,7 @@ import {
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import {NavLink} from 'react-router-dom'
 import { API_URL } from '../shared/url';
-
+import classes from './booksStyling.module.css'
 export default function SignInCopy(props) {
   // { console.log(props + "this is props")}
 
@@ -71,7 +71,7 @@ signInWithEmailAndPassword(auth, email, password)
 
   return (
   <>
-    <Fieldset legend="Personal information">
+    <Fieldset className={classes.formcontainer} legend="Sign In">
       <Controller
       name = "email"
       control = {control}
@@ -113,7 +113,6 @@ signInWithEmailAndPassword(auth, email, password)
 
       {isG && <p color="green">Success</p>}
     </Fieldset>
-    <NavLink to="/books" >Books</NavLink>
     </>
     
   );

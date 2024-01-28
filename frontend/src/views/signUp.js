@@ -12,6 +12,7 @@ import {
 import app from "../shared/firebaseConfig/firebase";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { API_URL } from '../shared/url';
+import classes from './booksStyling.module.css'
 
 export default function SignUp(props) {
   // { console.log(props + "this is props")}
@@ -34,12 +35,12 @@ export default function SignUp(props) {
       const user = userCredential.user;
       setF(true)
       await sendEmailVerification(user);
-      /*axios.post(API_URL + '/add-user',{name:data.name,uuid:user.uid,email:data.email})
+      axios.post(API_URL + '/add-user',{name:data.name,uuid:user.uid,email:data.email})
         .then(res => {
           console.log("success")
         })
         .catch(err => console.log(err));
-      ;*/
+      
 
     })
     .catch((error) => {
@@ -94,7 +95,7 @@ signInWithEmailAndPassword(auth, email, password)
 
   return (
   
-    <Fieldset legend="Personal information">
+    <Fieldset className={classes.formcontainer} legend="Sign Up">
       <Controller
       name = "name"
       control = {control}
@@ -149,8 +150,7 @@ signInWithEmailAndPassword(auth, email, password)
           Submit
         </Button>
       </Group>
-      {isF && <p color="green">A verfification link has been sent to your email</p>}
-      {isG && <p color="green">Success</p>}
+      {isF && <p color="green">Sign In after clicking on the verfication link sent to your email</p>}
     </Fieldset>
     
   );
