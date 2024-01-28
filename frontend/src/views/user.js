@@ -19,7 +19,7 @@ export default function User(){
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
         setUser(uid)
-        console.log(API_URL + "user/" + user.uid.toString())
+        console.log(API_URL + "/user/" + user.uid.toString())
          const response =  axios.get(API_URL + "user/" + useruid)
             .then((result) =>{
               console.log(JSON.stringify(result) + "this is user Data")
