@@ -26,7 +26,8 @@ export default function Books(){
     async function checkOut(book_id){
         axios.post(API_URL + '/checkout-book',{book_id:book_id, uuid: user.uid})
         .then(res => {
-            const filteredArray = data.filter(item => item._id !== book_id);   
+            const filteredArray = data.filter(item => item._id !== book_id);
+            console.log(filteredArray + "this is filtered array")   
             setData(filteredArray);
             setFlag(!flag)
             setCheckoutsSize(checkoutsSize + 1)
@@ -50,10 +51,9 @@ export default function Books(){
       async function getData(){
             const response = await axios.get(API_URL + '/get-books');
             const dat = await response.data
-           
-
-
-            setData(dat)
+            const filterarray = dat.filter(item => item.checkedOut == false)
+            console.log(filterarray)
+            setData(filterarray)
             
         }
         getData();

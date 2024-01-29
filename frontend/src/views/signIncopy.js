@@ -34,6 +34,7 @@ export default function SignInCopy(props) {
     // if a user forgets to sign out.
     // ...
     // New sign-in will be persisted with session persistence.
+    setG(true)
     return signInWithEmailAndPassword(auth, data.email, data.password);
   })
   .catch((error) => {

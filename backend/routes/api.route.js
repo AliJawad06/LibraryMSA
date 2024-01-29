@@ -111,7 +111,13 @@ router.route('/delete-checkout').post((req,res,next) =>{
       }
     }
   ).then((result1) =>{
-    
+    bookSchema.findOneAndUpdate({_id:req.body.book_id}, {checkedOut:false})
+     .then((result) =>{
+       console.log(result + "this is the book result")
+     })
+     .catch((err) =>{
+       console.log(err);
+     })
   })
   .catch((err) =>{
     console.log(err);
@@ -158,9 +164,9 @@ router.route('/checkout-book').post((req, res, next) => {
       console.log(err);
     })
     
-     bookSchema.findOneAndUpdate({_id:req.body.book_id}, {checkedOut:false})
+     bookSchema.findOneAndUpdate({_id:req.body.book_id}, {checkedOut:true})
      .then((result) =>{
-       console.log(result)
+       console.log(result + "this is the book result")
      })
      .catch((err) =>{
        console.log(err);

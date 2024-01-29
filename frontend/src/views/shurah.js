@@ -48,13 +48,13 @@ export default function Shurah(){
 
 
 
-    async function deleteCO(checkout_id, name){
+    async function deleteCO(checkout_id, name, book_id){
       
 
 
 
 
-      axios.post(API_URL + '/delete-checkout',{checkout_id:checkout_id, name: name})
+      axios.post(API_URL + '/delete-checkout',{checkout_id:checkout_id, name: name, book_id:book_id})
         .then(res => {
             console.log(JSON.parse(res.data) + "this")
             const filteredArray = t2.filter((item) => (
@@ -81,6 +81,7 @@ export default function Shurah(){
       async function getData(){
             const response = await axios.get(API_URL + '/get-all-checkouts');
             const dat = await response.data
+            console.log(dat)
             dat.filter((student) =>{
               const name = student.name;
               var t1 = []
@@ -88,6 +89,7 @@ export default function Shurah(){
               for(var i = 0; i < student.checkouts.length; i++) {
         
                 var checkout = student.checkouts[i];
+                console.log(checkout + "this is checkout")
                 
 
                 const ui_checkout = {
@@ -95,7 +97,8 @@ export default function Shurah(){
                   title: checkout.book.title,
                   due_date: checkout.due_date,
                   _id: checkout._id,
-                  due_length: checkout.book.due_length
+                  due_length: checkout.book.due_length,
+                  book_id: checkout.book._id
                 }              
                 checkout.status ? t2.push(ui_checkout) : t1.push(ui_checkout)
 
@@ -118,7 +121,7 @@ export default function Shurah(){
                   <Table.Td>{row.name}</Table.Td>
                   <Table.Td>{row.title}</Table.Td>
                   <Table.Td>{row.due_date}</Table.Td>
-                  <Button onClick={() => deleteCO(row._id,name)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+                  <Button onClick={() => deleteCO(row._id,name, row.book_id)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Checkout Book now 
               </Button>
                 </Table.Tr>
@@ -140,7 +143,7 @@ export default function Shurah(){
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.email;
-        if(user.email == "shurah@gmail.com"){
+        if(user.email == "shurah@uncmsa.org"){
             setUser(user) 
         }
         // ...
