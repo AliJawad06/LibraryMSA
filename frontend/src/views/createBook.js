@@ -27,7 +27,7 @@ export default function SignInCopy(props) {
     defaultValues: {
       title: "",
       author: "",
-      due_length: 0,
+      due_length: 14,
       description: "",
       file_name: "",
     },
@@ -133,6 +133,7 @@ signInWithEmailAndPassword(auth, email, password)
       }} 
       />
       <Controller
+      disabled = {true}
       name = "due_length"
       control = {control}
       rules={{
@@ -140,10 +141,12 @@ signInWithEmailAndPassword(auth, email, password)
       }}
       render={({ field,formState }) => {
         return <TextInput
+          
           label="DueLength"
           error = {formState.errors.name && formState.errors.name.message}
           placeholder="Due_length"
           mt="md"
+          
           {...field}
           type = 'number'
         />
