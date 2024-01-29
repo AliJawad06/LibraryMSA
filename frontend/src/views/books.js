@@ -14,7 +14,7 @@ export default function Books(){
     const[auth,setAuth] = useState(getAuth());
     const [isLoaded, setLoaded] = useState(false)
     const [checkoutsSize, setCheckoutsSize] = useState(null);
-    const [isDisabled, setIsDisabled] = useState(false);
+    const [isDisabled, setIsDisabled] = useState(true);
     const [user, setUser] = useState(null)
 
 
@@ -73,6 +73,7 @@ export default function Books(){
               axios.get(API_URL + "/getUserCheckoutsSize/" + userID)
                 .then(response => {
                   setCheckoutsSize(response.data.checkoutsSize);
+                  setIsDisabled(false);
                   console.log(response.data.checkoutsSize + "this is checkoutSize")
                   if(checkoutsSize > 2){
                     setIsDisabled(true)

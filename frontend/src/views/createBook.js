@@ -160,6 +160,7 @@ signInWithEmailAndPassword(auth, email, password)
           label="Description"
           error = {formState.errors.name && formState.errors.name.message}
           placeholder="Description"
+          wrap
           value={uploadImage}
           onChange={uploadFile}
           mt="md"
@@ -176,8 +177,9 @@ signInWithEmailAndPassword(auth, email, password)
       render={({ field,formState }) => {
         return <FileInput
         placeholder="Pick file"
-        label="Book Data"
+        label="Book Cover Image"
         withAsterisk
+        
         {...field}
       />
       }} 

@@ -21,7 +21,19 @@ export default function Shurah(){
     const [scrolled, setScrolled] = useState(false);
 
 
-   
+    onAuthStateChanged(auth, (user) => { 
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.email;
+        if(user.email == "shurah@uncmsa.org"){
+            setUser(user) 
+        }
+        // ...
+      } else {
+        redirect('https://msalibrary.vercel.app/books')
+      }
+    });
     
 
     async function checkOut(checkout_id, name, due_length){
@@ -112,7 +124,7 @@ export default function Shurah(){
                   <Table.Td>{row.title}</Table.Td>
                   <Table.Td>{row.due_date}</Table.Td>
                   <Button onClick={() => checkOut(row._id, name,row.due_length)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
-                Checkout Book now 
+                Checkout Book 
               </Button>
                 </Table.Tr>
               ));
@@ -122,7 +134,7 @@ export default function Shurah(){
                   <Table.Td>{row.title}</Table.Td>
                   <Table.Td>{row.due_date}</Table.Td>
                   <Button onClick={() => deleteCO(row._id,name, row.book_id)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
-                Checkout Book now 
+                Check-in Book 
               </Button>
                 </Table.Tr>
               ));
@@ -138,19 +150,7 @@ export default function Shurah(){
 
     },[])
 
-    onAuthStateChanged(auth, (user) => { 
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.email;
-        if(user.email == "shurah@uncmsa.org"){
-            setUser(user) 
-        }
-        // ...
-      } else {
-        redirect('http://localhost:3000/books')
-      }
-    });
+   
 
  
 
@@ -159,7 +159,7 @@ export default function Shurah(){
 
 return (
   <div >
-    
+    {user && 
      <div> 
 
       <ScrollArea h={300} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
@@ -187,7 +187,9 @@ return (
       </Table>
     </ScrollArea>
     </div> 
+}
   </div>
+   
 );
 
 
