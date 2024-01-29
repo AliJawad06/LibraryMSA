@@ -133,7 +133,7 @@ signInWithEmailAndPassword(auth, email, password)
       }} 
       />
       <Controller
-      disabled = {true}
+
       name = "due_length"
       control = {control}
       rules={{
