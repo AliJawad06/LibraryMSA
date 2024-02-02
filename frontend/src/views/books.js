@@ -100,7 +100,7 @@ return (
     
     {data && (
     
-      <SimpleGrid className= {classes.bookcontainer} cols = {5}>
+      <SimpleGrid className= {classes.bookcontainer} cols = {6}>
         {data.map((book,i) => (
               <Card key = {book._id} shadow="sm" padding="sm" radius="sm" withBorder>
               <Card.Section component="a" href="https://mantine.dev/">
@@ -134,7 +134,7 @@ return (
                 {book.author}
               </Text>
 
-              <Button onClick={() => checkOut(book._id)} disabled = {isDisabled} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+              <Button onClick={() => checkOut(book._id)} disabled = {true} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Checkout Book now 
               </Button>
             </Card>

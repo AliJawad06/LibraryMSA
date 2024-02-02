@@ -11,6 +11,12 @@ import {
   Group,
   FileInput,
   MantineProvider,
+  Card,
+  Text,
+  Badge,
+  Image,
+  HoverCard,
+  SimpleGrid
 } from "@mantine/core";
 import app from "../shared/firebaseConfig/firebase";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
@@ -20,7 +26,9 @@ export default function SignInCopy(props) {
   // { console.log(props + "this is props")}
 
   const [isG, setG] = useState();
-  const [uploadImage, setUploadImage] = useState()
+  const [uploadImage, setUploadImage] = useState();
+  const [url,setUrl] = useState();
+  const [text,setText] = useState("paste Image Url in here")
   
 
   const { control, handleSubmit } = useForm({
@@ -40,41 +48,28 @@ export default function SignInCopy(props) {
   }
 
   const onSubmit = (data) => {
-    const host = "https://msalibrary.s3.amazonaws.com/"
     const body = data.file_name
     
     
-    const book = {...data,file_name:host + data.title.replace(/ /g, "+") + ".png",checkedOut: false};
+    const book = {...data,checkedOut: false, due_length:14};
     console.log(book)
     axios.post(API_URL + '/add-book',book)
         .then(res => {
         setG(true)
                     
         })
-        .catch(err => console.log(err));
-        const bucketName = "msalibrary";
-
-        const params = {
-          Bucket: bucketName,
-          Key:  data.title + ".png",
-          Body: body,
-        };
-        
-       
-      
-        client.send(new PutObjectCommand(params))
-          .then(response => {
-            console.log("Upload successful", response);
-          })
-          .catch(error => {
-            console.error("Error uploading file", error);
-          });
-        
-
-        
-              
+        .catch(err => console.log(err));          
   }   
 
+
+   function handlePaste(event){
+    console.log("pasted")
+    setUrl(event.target.value)
+    setTimeout(() => {
+      console.log("Delayed for 1 second.");
+    }, 500);
+
+  }
   
   
 
@@ -97,8 +92,12 @@ signInWithEmailAndPassword(auth, email, password)
     });
    
   }*/
-  return (
+
   
+
+
+  return (
+   <>
     <Fieldset className={classes.formcontainer} legend="Book Information">
       <Controller
       name = "title"
@@ -163,9 +162,6 @@ signInWithEmailAndPassword(auth, email, password)
           label="Description"
           error = {formState.errors.name && formState.errors.name.message}
           placeholder="Description"
-          wrap
-          value={uploadImage}
-          onChange={uploadFile}
           mt="md"
           {...field}
         />
@@ -178,22 +174,52 @@ signInWithEmailAndPassword(auth, email, password)
         required: {value: true, message:"This is required"},
       }}
       render={({ field,formState }) => {
-        return <FileInput
-        placeholder="Pick file"
-        label="Book Cover Image"
-        withAsterisk
-        
-        {...field}
-      />
+        return <TextInput
+          onPaste={(e) => handlePaste(e)}
+          label="Image Url"
+          error = {formState.errors.name && formState.errors.name.message}
+          placeholder="Description"
+          aria-label="Clear input"
+          mt="md"
+          {...field}
+        />
       }} 
       />
+      
       <Group justify="flex-end" mt="md">
-        <Button onClick={handleSubmit(onSubmit)} type="submit">
+        <Button type="submit">
           Submit
         </Button>
       </Group>
       {isG && <p color="green">Success</p>}
     </Fieldset>
+    <SimpleGrid  className={classes.sampleGrid} cols={6}>
+    <Card className={classes.sampleCard} shadow="sm" padding="lg" radius="md" withBorder   >
+      <Card.Section>
+        <Image
+          src={url}
+          height={160}
+          alt="Norway"
+        />
+      </Card.Section>
+
+      <Group justify="space-between" mt="md" mb="xs">
+        <Text fw={500}>Sample Title</Text>
+      </Group>
+
+      <Text size="sm" c="dimmed">
+        Sample Description
+      </Text>
+      <Badge color="pink" variant="light">
+                  14
+      </Badge>
+
+      <Button color="blue" fullWidth mt="md" radius="md">
+        Sample Button
+      </Button>
+    </Card>
+    </SimpleGrid>
+  </>
     
   );
 }

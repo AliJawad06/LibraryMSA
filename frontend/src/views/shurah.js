@@ -45,17 +45,20 @@ export default function Shurah(){
         due = due.setDate(due.getDate() + (day_due % 5) + 1);
       }
       due = new Date(due).toLocaleDateString()
+
       axios.post(API_URL + '/change-status',{checkout_id:checkout_id, name: name, due_date: due})
         .then(res => {
-            console.log(JSON.parse(res.data) + "this is res")
+          console.log(res)
+            console.log(res.data + "this is res")
+            console.log(t1)
             const filteredArray = t1.filter((item) => (
               item._id !== checkout_id));   
+
             setT1(filteredArray);
             setFlag(!flag)
         })
         .catch(err => console.log(err));
 
-        window.location.reload();
     }
 
 
@@ -68,7 +71,7 @@ export default function Shurah(){
 
       axios.post(API_URL + '/delete-checkout',{checkout_id:checkout_id, name: name, book_id:book_id})
         .then(res => {
-            console.log(JSON.parse(res.data) + "this")
+            console.log(res.data + "this")
             const filteredArray = t2.filter((item) => (
               item._id !== checkout_id));   
             setT2(filteredArray);
@@ -76,7 +79,6 @@ export default function Shurah(){
         })
         .catch(err => console.log(err));
 
-        window.location.reload();
       
     }
 
@@ -101,7 +103,7 @@ export default function Shurah(){
               for(var i = 0; i < student.checkouts.length; i++) {
         
                 var checkout = student.checkouts[i];
-                console.log(checkout + "this is checkout")
+                console.log(JSON.stringify(checkout) + "this is checkout")
                 
 
                 const ui_checkout = {
