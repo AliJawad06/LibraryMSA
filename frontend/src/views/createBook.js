@@ -49,8 +49,6 @@ export default function SignInCopy(props) {
   }
 
   const onSubmit = (data) => {
-    const body = data.file_name
-    
     
     const book = {...data,checkedOut: false, due_length:14};
     console.log(book)
@@ -145,7 +143,6 @@ signInWithEmailAndPassword(auth, email, password)
           error = {formState.errors.name && formState.errors.name.message}
           placeholder="Due_length"
           mt="md"
-          onSeledct
           {...field}
           type = 'number'
         />
@@ -187,7 +184,7 @@ signInWithEmailAndPassword(auth, email, password)
       />
       
       <Group justify="flex-end" mt="md">
-        <Button type="submit">
+        <Button type="submit" onClick={handleSubmit(onSubmit)}  >
           Submit
         </Button>
       </Group>
