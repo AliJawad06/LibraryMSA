@@ -29,6 +29,7 @@ export default function SignInCopy(props) {
   const [uploadImage, setUploadImage] = useState();
   const [url,setUrl] = useState();
   const [text,setText] = useState("paste Image Url in here")
+  const [flag,setFlag] = useState(true)
   
 
   const { control, handleSubmit } = useForm({
@@ -63,11 +64,10 @@ export default function SignInCopy(props) {
 
 
    function handlePaste(event){
-    console.log("pasted")
-    setUrl(event.target.value)
-    setTimeout(() => {
-      console.log("Delayed for 1 second.");
-    }, 500);
+    const pastedUrl = event.clipboardData.getData('text');
+    setUrl(pastedUrl);
+    setFlag(!flag);
+   
 
   }
   
@@ -145,7 +145,7 @@ signInWithEmailAndPassword(auth, email, password)
           error = {formState.errors.name && formState.errors.name.message}
           placeholder="Due_length"
           mt="md"
-          
+          onSeledct
           {...field}
           type = 'number'
         />
@@ -175,7 +175,7 @@ signInWithEmailAndPassword(auth, email, password)
       }}
       render={({ field,formState }) => {
         return <TextInput
-          onPaste={(e) => handlePaste(e)}
+          onPasteCapture={(e) => handlePaste(e)}
           label="Image Url"
           error = {formState.errors.name && formState.errors.name.message}
           placeholder="Description"
