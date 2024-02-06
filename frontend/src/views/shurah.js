@@ -58,6 +58,7 @@ export default function Shurah(){
             setFlag(!flag)
         })
         .catch(err => console.log(err));
+        window.location.reload();
 
     }
 
@@ -78,7 +79,7 @@ export default function Shurah(){
             setFlag(!flag)
         })
         .catch(err => console.log(err));
-
+        window.location.reload();
       
     }
 

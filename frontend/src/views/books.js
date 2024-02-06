@@ -34,6 +34,7 @@ export default function Books(){
             if(checkoutsSize > 2){
               setIsDisabled(true)
             }
+            
         })
         .catch(err => console.log( "this is err"));
     }
@@ -46,7 +47,6 @@ export default function Books(){
   
    
     useEffect(()=>{
-
       console.log("here")
       async function getData(){
             const response = await axios.get(API_URL + '/get-books');
@@ -134,7 +134,7 @@ return (
                 {book.author}
               </Text>
 
-              <Button onClick={() => checkOut(book._id)} disabled = {true} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+              <Button onClick={() => checkOut(book._id)} disabled = {false} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Checkout Book now 
               </Button>
             </Card>
