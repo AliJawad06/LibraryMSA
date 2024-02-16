@@ -30,7 +30,8 @@ export default function SignInCopy(props) {
   const [url,setUrl] = useState();
   const [text,setText] = useState("paste Image Url in here")
   const [flag,setFlag] = useState(true)
-  
+  const [user, setUser] = useState(null)
+  const[auth,setAuth] = useState(getAuth());
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -71,6 +72,22 @@ export default function SignInCopy(props) {
   
   
 
+  onAuthStateChanged(auth, (user) => { 
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.email;
+      if(user.emailVerified){
+          console.log("user is verified")
+          setUser(user) 
+          const userID = user.uid
+      }
+      
+    } else {
+      //redirect('http://localhost:3000/books')
+    }
+  });
+
 
   /*
 async function addUser(e){
@@ -95,8 +112,10 @@ signInWithEmailAndPassword(auth, email, password)
 
 
   return (
+  <>
+  {user && 
    <>
-    <Fieldset className={classes.formcontainer} legend="Book Information">
+       <Fieldset className={classes.formcontainer} legend="Book Information">
       <Controller
       name = "title"
       control = {control}
@@ -217,6 +236,7 @@ signInWithEmailAndPassword(auth, email, password)
     </Card>
     </SimpleGrid>
   </>
-    
+}
+  </>
   );
 }
