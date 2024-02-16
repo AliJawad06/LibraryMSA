@@ -134,7 +134,7 @@ return (
                 {book.author}
               </Text>
 
-              <Button onClick={() => checkOut(book._id)} disabled = {false} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+              <Button onClick={() => checkOut(book._id)} disabled = {user} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Checkout Book now 
               </Button>
             </Card>
