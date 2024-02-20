@@ -20,6 +20,8 @@ import {
 } from "@mantine/core";
 import app from "../shared/firebaseConfig/firebase";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { getAuth,onAuthStateChanged } from "firebase/auth";
+
 import classes from './booksStyling.module.css'
 
 export default function SignInCopy(props) {
