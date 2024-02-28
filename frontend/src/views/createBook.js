@@ -46,7 +46,12 @@ export default function SignInCopy(props) {
     mode:"all"
   });
 
-  
+  const handlePaste = (event) => {
+    const newUrl = event.clipboardData.getData('text')
+    if(newUrl != url){
+      setUrl(newUrl)
+    }
+  }
 
 
   const onSubmit = (data) => {
@@ -65,14 +70,14 @@ export default function SignInCopy(props) {
 
   
 
-  onAuthStateChanged(auth, (user) => { 
-    if (user) {
+  onAuthStateChanged(auth, (userlog) => { 
+    if (userlog) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.email;
-      if(user.emailVerified){
-          setUser(user) 
-          const userID = user.uid
+      const uid = userlog.email;
+      if(userlog.emailVerified && userlog != user){
+          setUser(userlog) 
+          const userID = userlog.uid
       }
       
     } else {
@@ -183,7 +188,7 @@ signInWithEmailAndPassword(auth, email, password)
       }}
       render={({ field,formState }) => {
         return <TextInput
-          onPasteCapture={(e) =>  setUrl(e.clipboardData.getData('text'))}
+        onPaste={(e) => handlePaste(e)}
           label="Image Url"
           error = {formState.errors.name && formState.errors.name.message}
           placeholder="Description"
