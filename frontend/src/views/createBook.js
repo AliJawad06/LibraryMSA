@@ -46,7 +46,7 @@ export default function SignInCopy(props) {
     mode:"all"
   });
 
-
+  
 
 
   const onSubmit = (data) => {
@@ -105,8 +105,7 @@ signInWithEmailAndPassword(auth, email, password)
 
 
   return (
-  <>
-  {true && 
+  
    <>
        <Fieldset className={classes.formcontainer} legend="Book Information">
       <Controller
@@ -196,7 +195,7 @@ signInWithEmailAndPassword(auth, email, password)
       />
       
       <Group justify="flex-end" mt="md">
-        <Button type="submit" onClick={handleSubmit(onSubmit)}  >
+        <Button type="submit" disabled={!user} onClick={handleSubmit(onSubmit)}  >
           Submit
         </Button>
       </Group>
@@ -229,7 +228,6 @@ signInWithEmailAndPassword(auth, email, password)
     </Card>
     </SimpleGrid>
   </>
-}
-  </>
+  
   );
 }
