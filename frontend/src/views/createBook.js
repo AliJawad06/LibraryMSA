@@ -45,11 +45,9 @@ export default function SignInCopy(props) {
     },
     mode:"all"
   });
-    console.log(client + "This is client")
-  const uploadFile = file => {
-    const preview = URL.createObjectURL(file)
-    setUploadImage(file)
-  }
+
+
+
 
   const onSubmit = (data) => {
     
@@ -64,14 +62,7 @@ export default function SignInCopy(props) {
   }   
 
 
-   function handlePaste(event){
-    const pastedUrl = event.clipboardData.getData('text');
-    setUrl(pastedUrl);
-    setFlag(!flag);
-   
 
-  }
-  
   
 
   onAuthStateChanged(auth, (user) => { 
@@ -80,7 +71,6 @@ export default function SignInCopy(props) {
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.email;
       if(user.emailVerified){
-          console.log("user is verified")
           setUser(user) 
           const userID = user.uid
       }
@@ -113,9 +103,10 @@ signInWithEmailAndPassword(auth, email, password)
   
 
 
+
   return (
   <>
-  {user && 
+  {true && 
    <>
        <Fieldset className={classes.formcontainer} legend="Book Information">
       <Controller
@@ -193,7 +184,7 @@ signInWithEmailAndPassword(auth, email, password)
       }}
       render={({ field,formState }) => {
         return <TextInput
-          onPasteCapture={(e) => handlePaste(e)}
+          onPasteCapture={(e) =>  setUrl(e.clipboardData.getData('text'))}
           label="Image Url"
           error = {formState.errors.name && formState.errors.name.message}
           placeholder="Description"
