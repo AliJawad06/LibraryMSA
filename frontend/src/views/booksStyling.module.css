@@ -1,9 +1,21 @@
 .bookcontainer{
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 20px
+    margin-top: 20px;
+    display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
+.content{
+    flex: 1; /* Allow the content to take up remaining space, pushing the button to the bottom */
+    display: flex;
+    flex-direction: column;
+}
+
+.author {
+    margin-bottom: 10px; /* Adjust margin as needed */
+  }
 .formcontainer{
     margin-left: 20px;
     margin-right: 20px;

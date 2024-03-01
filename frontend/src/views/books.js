@@ -110,14 +110,14 @@ return (
                   alt="Norway"
                 />
               </Card.Section>
-              
+              <div className={classes.content}>
               <Group justify="space-between" mt="md" mb="xs">
               <HoverCard width={280} shadow="md">
               <HoverCard.Target>
                 <Text fw={500}>{book.title}</Text>
               </HoverCard.Target>
               <HoverCard.Dropdown>
-                <Text size="sm">
+                <Text  size="sm">
                   {book.description}
                 </Text>
               </HoverCard.Dropdown>
@@ -128,13 +128,16 @@ return (
                 </Badge>
               </Group>
               
+              
 
         
-              <Text size="sm" c="dimmed">
+              <Text className={classes.author} size="sm" c="dimmed">
                 {book.author}
               </Text>
-
-              <Button onClick={() => checkOut(book._id)} disabled = {!user} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+              </div>
+              
+        
+              <Button className={classes.buttoncontainer} onClick={() => checkOut(book._id)} disabled = {!user} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Checkout Book now 
               </Button>
             </Card>
