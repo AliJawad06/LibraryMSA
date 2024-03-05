@@ -30,13 +30,14 @@ signInWithEmailAndPassword(auth, email, password)
 
   return (
     <>
-    <Center maw={1280*2} h={500*2} >
+    <Center maw={1280*2} h={250*2} >
     <div>
-      <Text size= "xl" as="div" style={{ display: 'block',fontSize: '80px' }}>
-        Asalaamu Alaykum
+      <Text size= "xl" as="div" style={{ display: 'block',fontSize: '80px'}}>
+                      ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَق 
       </Text>
-      <Text as="div" style={{ display: 'block', fontSize: '50px' }}>
-        Welcome to our Library
+      <Text as="div" style={{ display: 'block', fontSize: '30px'}}>
+      Read, ˹O Prophet,˺ in the Name of your Lord Who created
+
       </Text>
     </div>
     </Center>

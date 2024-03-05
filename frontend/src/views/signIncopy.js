@@ -16,7 +16,7 @@ export default function SignInCopy(props) {
   // { console.log(props + "this is props")}
 
   const [auth, setAuth] = useState(getAuth())
-  const [isG, setG] = useState();
+  const [isG, setG] = useState(0);
 
 
   const { control, handleSubmit } = useForm({
@@ -35,12 +35,17 @@ export default function SignInCopy(props) {
     // ...
     // New sign-in will be persisted with session persistence.
     
-    return signInWithEmailAndPassword(auth, data.email, data.password).then;
+    return signInWithEmailAndPassword(auth, data.email, data.password).then((cred)=>{
+      const user = cred.user
+      setG(1)
+    });
   })
   .catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
     const errorMessage = error.message;
+    setG(-1)
+
   });
     
     
@@ -112,7 +117,9 @@ signInWithEmailAndPassword(auth, email, password)
         </Button>
       </Group>
 
-      {isG && <p color="green">Success</p>}
+      {isG==-1 && <p color="green">Incorrect Credentials</p>}
+      {isG ==1 && <p color="green">Success</p>}
+
     </Fieldset>
     </>
     
