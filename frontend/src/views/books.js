@@ -31,7 +31,7 @@ export default function Books(){
             setData(filteredArray);
             setFlag(!flag)
             setCheckoutsSize(checkoutsSize + 1)
-            if(checkoutsSize > 2){
+            if(checkoutsSize > 0){
               setIsDisabled(true)
             }
             
