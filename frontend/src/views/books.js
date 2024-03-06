@@ -33,6 +33,7 @@ export default function Books(){
             setCheckoutsSize(checkoutsSize + 1)
             if(checkoutsSize > 0){
               setIsDisabled(true)
+              console.log(checkoutsSize + "teewe")
             }
             
         })
@@ -61,22 +62,31 @@ export default function Books(){
     },[])
 
    
- onAuthStateChanged(auth, (user) => { 
-      if (user) {
+ onAuthStateChanged(auth, (user1) => { 
+      
+      if (user1) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.email;
-        if(user.emailVerified){
+        const uid = user1.email;
+        if(user1.emailVerified ){
             console.log("user is verified")
-            setUser(user) 
-            const userID = user.uid
+            if (user1 != user){
+            setUser(user1)
+            } 
+            const userID = user1.uid
               axios.get(API_URL + "/getUserCheckoutsSize/" + userID)
                 .then(response => {
+                  if(checkoutsSize != response.data.checkoutsSize){
                   setCheckoutsSize(response.data.checkoutsSize);
+                  }
+                  if(isDisabled && checkoutsSize < 1){
                   setIsDisabled(false);
+                  }
                   console.log(response.data.checkoutsSize + "this is checkoutSize")
                   if(checkoutsSize > 0){
+                    if(!isDisabled){
                     setIsDisabled(true)
+                    }
                   }
                 })
                 .catch(error => {
@@ -137,7 +147,7 @@ return (
               </div>
               
         
-              <Button className={classes.buttoncontainer} onClick={() => checkOut(book._id)} disabled = {!user} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+              <Button className={classes.buttoncontainer} onClick={() => checkOut(book._id)} disabled = {isDisabled} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Checkout Book now 
               </Button>
             </Card>
