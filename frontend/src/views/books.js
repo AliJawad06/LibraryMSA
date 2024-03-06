@@ -75,7 +75,7 @@ export default function Books(){
                   setCheckoutsSize(response.data.checkoutsSize);
                   setIsDisabled(false);
                   console.log(response.data.checkoutsSize + "this is checkoutSize")
-                  if(checkoutsSize > 2){
+                  if(checkoutsSize > 0){
                     setIsDisabled(true)
                   }
                 })
