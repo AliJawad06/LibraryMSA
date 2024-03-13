@@ -106,11 +106,11 @@ export default function Books(){
 
 
 return (
-  <div >
+  <div  >
     
     {data && (
     
-      <SimpleGrid className= {classes.bookcontainer} cols = {6}>
+      <SimpleGrid  className= {classes.bookcontainer} cols={{ base: 1, sm: 3, lg: 6 }} >
         {data.map((book,i) => (
               <Card key = {book._id} shadow="sm" padding="sm" radius="sm" withBorder>
               <Card.Section component="a" href="https://mantine.dev/">
