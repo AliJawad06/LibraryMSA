@@ -8,7 +8,7 @@ export default function Resources() {
         {label: 'Hanbali', link: 'https://www.almadrasahalhanbaliyyah.com/'},
         {label: 'Everything', link: 'https://seekersguidance.org/'},
         {label: 'Fiqh/Aqeedah/Tazkiya', link: 'https://www.arkview.org/'},
-
+        {label: 'History', link: 'https://muslimlegacy.com/collections/all'}
        
       ];
 
