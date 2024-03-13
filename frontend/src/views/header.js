@@ -8,6 +8,8 @@ const links = [
   { link: '/books', label: 'Books' },
   { link: '/sign-up', label: 'Sign Up' },
   { link: '/sign-in', label: 'Sign In' },
+  { link: '/resources', label: 'Resources' },
+
   { link: '/', label: 'Home' },
 ];
 
@@ -31,7 +33,7 @@ export function HeaderSimple() {
   return (
     <AppShell
       header={{ 
-        height: 60
+        height: 80
       }}
       navbar={{
         width: 300,
