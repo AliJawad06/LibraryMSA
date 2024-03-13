@@ -18,8 +18,9 @@ const App = () => {
 
   return (
     <>
-    <HeaderSimple />
-      <Router>      
+    <HeaderSimple  />
+    <div>
+      <Router >      
         <Routes>  
           <Route exact path = "/shurah" element = {<Shurah/>} />
           <Route exact path = "/sign-in" element={<SignInCopy />} />
@@ -32,6 +33,7 @@ const App = () => {
           <Route exact path = "/" element={<Home />} />
         </Routes>
       </Router>
+      </div>
       </>
       
   );
