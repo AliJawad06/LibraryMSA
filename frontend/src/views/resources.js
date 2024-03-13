@@ -25,7 +25,7 @@ export default function Resources() {
     <Table  className={classes.table}>
       <Table.Thead>
         <Table.Tr>
-          <Table.Th>Org Name</Table.Th>
+          <Table.Th>Type</Table.Th>
           <Table.Th>Link</Table.Th>
         </Table.Tr>
       </Table.Thead>
