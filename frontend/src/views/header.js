@@ -32,10 +32,12 @@ export function HeaderSimple() {
     <header className={classes.header}>
       <Container size="md" className={classes.inner}>
       <img src='uncmsa-LOGO.png'/>
-        <Group gap={5} visibleFrom="xs">
+      <Group gap={5} visibleFrom="xs">
           {items}
         </Group>
+        
         <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
+       
       </Container>
     </header>
   );
