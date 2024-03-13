@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Group, Burger } from '@mantine/core';
+import { Container, Group, Burger, AppShell, Flex } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { MantineLogo } from '@mantinex/mantine-logo';
 import classes from './HeaderSimple.module.css';
@@ -29,16 +29,50 @@ export function HeaderSimple() {
   ));
 
   return (
-    <header className={classes.header}>
-      <Container size="md" className={classes.inner}>
+    <AppShell
+      header={{ 
+        height: 60
+      }}
+      navbar={{
+        width: 300,
+        breakpoint: 'sm',
+        collapsed: { mobile: !opened },
+      }}
+      padding="lg"
+      withBorder={false}
+    >
+      <AppShell.Header  >
+      <Flex
+      mih={0}
+      
+      justify="flex-end"
+      
+    >
+        <Burger
+          opened={opened}
+          onClick={toggle}
+          hiddenFrom="sm"
+          size="sm"
+        
+        />
+      </Flex>
+         <Container size="md" className={classes.inner}>
       <img src='uncmsa-LOGO.png'/>
-      <Group gap={5} visibleFrom="xs">
+        <Group gap={5} visibleFrom="sm">
           {items}
         </Group>
-        
-        <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
-       
       </Container>
-    </header>
+      </AppShell.Header>
+      {
+      opened && 
+      <AppShell.Navbar p="md"> 
+      <Group gap={5} display={'table-column'} >
+          {items}
+        </Group>
+      </AppShell.Navbar>
+      }
+
+</AppShell>
+
   );
 }
