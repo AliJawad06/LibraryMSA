@@ -8,7 +8,7 @@ export default function Resources() {
         {label: 'Hanbali', link: 'https://www.almadrasahalhanbaliyyah.com/'},
         {label: 'Everything', link: 'https://seekersguidance.org/'},
         {label: 'Fiqh/Aqeedah/Tazkiya', link: 'https://www.arkview.org/'},
-        {label: 'History', link: 'https://muslimlegacy.com/collections/all'}
+        {label: 'History', link: 'https://muslimlegacy.com/'}
        
       ];
 
@@ -16,7 +16,7 @@ export default function Resources() {
   const rows = elements.map((element) => (
     <Table.Tr key={element.label} >
       <Table.Td>{element.label}</Table.Td>
-      <Table.Td><a href={element.link}>{element.link}</a></Table.Td>
+      <Table.Td><a color='white' defaultChecked={false} href={element.link}>{element.link}</a></Table.Td>
      
     </Table.Tr>
   ));
