@@ -163,7 +163,7 @@ export default function Shurah(){
 return (
   <div >
     {user && 
-     <div style={{'marginTop': '3d8px'}}> 
+     <div style={{'marginTop': '80px'}}> 
 
       <ScrollArea h={300} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
       <Table miw={700}>
