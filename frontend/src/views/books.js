@@ -31,7 +31,7 @@ export default function Books(){
             setData(filteredArray);
             setFlag(!flag)
             setCheckoutsSize(checkoutsSize + 1)
-            if(checkoutsSize > 0){
+            if(checkoutsSize > 1){
               setIsDisabled(true)
               console.log(checkoutsSize + "teewe")
             }
@@ -79,11 +79,11 @@ export default function Books(){
                   if(checkoutsSize != response.data.checkoutsSize){
                   setCheckoutsSize(response.data.checkoutsSize);
                   }
-                  if(isDisabled && checkoutsSize < 1){
+                  if(isDisabled && checkoutsSize < 2){
                   setIsDisabled(false);
                   }
                   console.log(response.data.checkoutsSize + "this is checkoutSize")
-                  if(checkoutsSize > 0){
+                  if(checkoutsSize > 1){
                     if(!isDisabled){
                     setIsDisabled(true)
                     }
