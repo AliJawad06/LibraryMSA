@@ -9,8 +9,8 @@ export default function Resources() {
         {label: 'Everything', links: ['https://seekersguidance.org/']},
         {label: 'Fiqh/Aqeedah/Tazkiya', links: ['https://www.arkview.org/']},
         {label: 'History', links: ['https://muslimlegacy.com/']},
-        {label: 'Hanifi Foundation Books', links:[ 'https://archive.org/details/absolute-essentials-of-islam-faraz-fareed-rabbani','https://academy.seekersguidance.org/enrol/index.php?id=114']},
-        {label: "Shafi'i", links: ['https://drive.google.com/file/d/1srzua3PZKH_QlvO8cGoNEGS1CrqdfhMh/view?usp=sharing']}
+        {label: 'Hanifi Foundations', links:[ 'https://archive.org/details/absolute-essentials-of-islam-faraz-fareed-rabbani','https://academy.seekersguidance.org/enrol/index.php?id=114']},
+        {label: "Shafi'i Foundations", links: ['https://drive.google.com/file/d/1srzua3PZKH_QlvO8cGoNEGS1CrqdfhMh/view?usp=sharing']}
 
       ];
 
