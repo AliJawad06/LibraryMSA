@@ -48,9 +48,7 @@ export default function Shurah(){
 
       axios.post(API_URL + '/change-status',{checkout_id:checkout_id, name: name, due_date: due})
         .then(res => {
-          console.log(res)
-            console.log(res.data + "this is res")
-            console.log(t1)
+         
             const filteredArray = t1.filter((item) => (
               item._id !== checkout_id));   
 
@@ -72,7 +70,7 @@ export default function Shurah(){
 
       axios.post(API_URL + '/delete-checkout',{checkout_id:checkout_id, name: name, book_id:book_id})
         .then(res => {
-            console.log(res.data + "this")
+           //console.log(res.data + "this")
             const filteredArray = t2.filter((item) => (
               item._id !== checkout_id));   
             setT2(filteredArray);
@@ -91,20 +89,21 @@ export default function Shurah(){
    
     useEffect(()=>{
 
-      console.log("here")
+      //console.log("here")
       const checkoutsList = [];
       async function getData(){
             const response = await axios.get(API_URL + '/get-all-checkouts');
             const dat = await response.data
             console.log(dat)
+            var t1 = []
+            var t2 = []
             dat.filter((student) =>{
               const name = student.name;
-              var t1 = []
-              var t2 = []
+              
               for(var i = 0; i < student.checkouts.length; i++) {
         
                 var checkout = student.checkouts[i];
-                console.log(JSON.stringify(checkout) + "this is checkout")
+               // console.log(JSON.stringify(checkout) + "this is checkout")
                 
 
                 const ui_checkout = {
@@ -119,34 +118,45 @@ export default function Shurah(){
 
                 
                 
-                console.log(JSON.stringify(checkout) + "this is checkout")
+                //console.log(JSON.stringify(checkout) + "this is checkout")
               }
-               t1 = t1.map((row) => (
+             //console.log(t1 + "this is t1 \n")
+              //console.log(t2 + "this is t2\n"); 
+
+            })
+
+           if(t1){  
+             t1 = t1.map((row) => (
                 <Table.Tr key={row._id}>
                   <Table.Td>{row.name}</Table.Td>
                   <Table.Td>{row.title}</Table.Td>
                   <Table.Td>{row.due_date}</Table.Td>
-                  <Button onClick={() => checkOut(row._id, name,row.due_length)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+                  <Button onClick={() => checkOut(row._id, row.name,row.due_length)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Checkout Book 
               </Button>
                 </Table.Tr>
               ));
+              setT1([...t1])
+            }
+
+            if(t2){
               t2 = t2.map((row) => (
                 <Table.Tr key={row._id}>
                   <Table.Td>{row.name}</Table.Td>
                   <Table.Td>{row.title}</Table.Td>
                   <Table.Td>{row.due_date}</Table.Td>
-                  <Button onClick={() => deleteCO(row._id,name, row.book_id)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
+                  <Button onClick={() => deleteCO(row._id, row.name, row.book_id)} variant="light" color="blue" fullWidth mt="md" radius="md"  >
                 Check-in Book 
               </Button>
                 </Table.Tr>
               ));
-                setT1(t1)
-                setT2(t2)
-                console.log(t1,t2)
+              setT2([...t2])
+            }
 
-            }) 
+                
             
+                //console.log(t2)
+                //onsole.log("this is t2")
             
         }
         getData();
