@@ -31,7 +31,7 @@ signInWithEmailAndPassword(auth, email, password)
   return (
     <>
     <Center maw={1280*2} h={250*2} >
-    <div>
+    <div style={{marginTop: '100px'}}>
       <Text size= "xl" as="div" style={{ display: 'block',fontSize: '80px'}}>
                       ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَق 
       </Text>
