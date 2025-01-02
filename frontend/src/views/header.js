@@ -54,8 +54,7 @@ export function HeaderSimple() {
           opened={opened}
           onClick={toggle}
           hiddenFrom="sm"
-          size="sm"
-        
+          size="sm" 
         />
       </Flex>
          <Container size="md" className={classes.inner}>

@@ -1,11 +1,12 @@
 import React from "react";
 import { Text,Center } from "@mantine/core";
 import { API_URL } from '../shared/url';
+import { useState } from "react";
 
 export default function Home() {
-
-
+  const [scale, setScale] = useState(window.innerWidth < 390 ? 'scale(0.5)' : 'scale(1)')
   
+ 
   
 
 
@@ -31,7 +32,7 @@ signInWithEmailAndPassword(auth, email, password)
   return (
     <>
     <Center maw={1280*2} h={250*2} >
-    <div style={{marginTop: '100px'}}>
+    <div style={{marginTop: '100px', transform: scale}} >
       <Text size= "xl" as="div" style={{ display: 'block',fontSize: '80px'}}>
                       ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَق 
       </Text>
